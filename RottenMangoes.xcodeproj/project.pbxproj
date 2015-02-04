@@ -42,6 +42,7 @@
 		B20F2B381A82D7B400077B86 /* RottenMangoesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RottenMangoesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B20F2B3D1A82D7B400077B86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B20F2B3E1A82D7B400077B86 /* RottenMangoesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RottenMangoesTests.m; sourceTree = "<group>"; };
+		B20F2B481A82D83400077B86 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +89,6 @@
 				B20F2B291A82D7B400077B86 /* ViewController.h */,
 				B20F2B2A1A82D7B400077B86 /* ViewController.m */,
 				B20F2B2C1A82D7B400077B86 /* Main.storyboard */,
-				B20F2B2F1A82D7B400077B86 /* Images.xcassets */,
-				B20F2B311A82D7B400077B86 /* LaunchScreen.xib */,
 				B20F2B261A82D7B400077B86 /* RottenMangoes.xcdatamodeld */,
 				B20F2B1F1A82D7B400077B86 /* Supporting Files */,
 			);
@@ -99,6 +98,9 @@
 		B20F2B1F1A82D7B400077B86 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B20F2B2F1A82D7B400077B86 /* Images.xcassets */,
+				B20F2B311A82D7B400077B86 /* LaunchScreen.xib */,
+				B20F2B481A82D83400077B86 /* PrefixHeader.pch */,
 				B20F2B201A82D7B400077B86 /* Info.plist */,
 				B20F2B211A82D7B400077B86 /* main.m */,
 			);
@@ -290,6 +292,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/RottenMangoes/PrefixHeader.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -331,6 +335,8 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/RottenMangoes/PrefixHeader.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
