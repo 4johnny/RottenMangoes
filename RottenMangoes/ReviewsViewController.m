@@ -31,6 +31,10 @@
 	
 	self.reviews = [NSMutableArray arrayWithCapacity:PAGE_LIMIT];
 
+	self.review1Label.text = @"";
+	self.review2Label.text = @"";
+	self.review3Label.text = @"";
+	
 	// Build Rotten Tomatoes API command URL
 	NSMutableString* commandStr = [NSMutableString stringWithFormat:JSON_REVIEWS_CMD_FORMAT, self.movie.reviewsURL.absoluteString, PAGE_LIMIT, API_KEY_ROTTEN_TOMATOES];
 	NSURL* commandUrl = [NSURL URLWithString:commandStr];

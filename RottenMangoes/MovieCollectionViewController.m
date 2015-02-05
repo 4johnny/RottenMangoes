@@ -59,11 +59,10 @@
 	// Create and fire URL connection request
 	//	[NSURLConnection connectionWithRequest:urlReq delegate:self]; // Fine-grain control via delegate
 	// TODO: Consider retain cycle due to self in block
-	NSError* error = nil;
 	[NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 
 		if (!data) {
-		MDLog(@"URL Connection Error - %@ %@", error.localizedDescription, [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
+		MDLog(@"URL Connection Error - %@ %@", connectionError.localizedDescription, [connectionError.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
 			return;
 		}
 
