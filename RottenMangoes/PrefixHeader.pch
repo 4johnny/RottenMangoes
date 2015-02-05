@@ -18,4 +18,8 @@
 #define MDLog(format, ...) CFShow([NSString stringWithFormat:format, ## __VA_ARGS__]);
 #endif
 
+
+#define API_KEY_ROTTEN_TOMATOES	@"xe4xau69pxaah5tmuryvrw75"
+
+
 #endif

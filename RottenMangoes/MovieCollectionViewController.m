@@ -8,10 +8,9 @@
 
 #import "MovieCollectionViewController.h"
 #import "MovieCollectionViewCell.h"
+#import "ReviewsViewController.h"
 #import "Movie.h"
 
-
-#define API_KEY_ROTTEN_TOMATOES	@"xe4xau69pxaah5tmuryvrw75"
 
 #define PAGE_LIMIT	50
 #define PAGE_NUMBER	1
@@ -38,6 +37,10 @@
 # pragma mark UIViewController
 #
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	
+}
+
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -55,6 +58,7 @@
 	
 	// Create and fire URL connection request
 	//	[NSURLConnection connectionWithRequest:urlReq delegate:self]; // Fine-grain control via delegate
+	// TODO: Consider retain cycle due to self in block
 	NSError* error = nil;
 	[NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 
@@ -64,7 +68,7 @@
 		}
 
 		NSError* error = nil;
-		NSMutableDictionary* moviesJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+		NSDictionary* moviesJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
 		
 		if (!moviesJSON) {
 			MDLog(@"JSON Deserialization Error - %@ %@", error.localizedDescription, error.userInfo);
@@ -84,6 +88,19 @@
 	[super didReceiveMemoryWarning];
 	
 	// Dispose of any resources that can be recreated.
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+	if ([segue.identifier isEqualToString:@"showReviews"]) {
+
+		NSIndexPath* indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
+		Movie* movie = self.inTheatreMovies[indexPath.row];
+		
+		ReviewsViewController* controller = (ReviewsViewController*)[segue.destinationViewController topViewController];
+		controller.movie = movie;
+	}
 }
 
 
@@ -145,6 +162,7 @@
 	return nil; // NOTE: We should never get here!
 }
 */
+
 
 #
 # pragma mark <UICollectionViewDelegate>
@@ -315,6 +333,7 @@
 		movie.runtime = ((NSString*)movieJSON[@"runtime"]).intValue;
 		movie.criticsConsensus = movieJSON[@"critics_consensus"];
 		movie.synopsis = movieJSON[@"synopsis"];
+		movie.reviewsURL = [NSURL URLWithString:movieJSON[@"links"][@"reviews"]];
 		
 		[self.inTheatreMovies addObject:movie];
 	}

@@ -17,6 +17,7 @@
 @property (nonatomic) int runtime;
 @property (nonatomic) NSString* criticsConsensus;
 @property (nonatomic) NSString* synopsis;
+@property (nonatomic) NSURL* reviewsURL;
 
 + (Movie *)movie;
 

@@ -10,7 +10,6 @@
 
 @implementation Movie
 
-
 + (Movie *)movie {
 	
 	return [[Movie alloc] init];
