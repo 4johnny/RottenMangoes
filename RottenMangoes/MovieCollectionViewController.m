@@ -24,7 +24,6 @@
 @interface MovieCollectionViewController ()
 
 @property (nonatomic) NSMutableArray* inTheatreMovies;
-//@property (nonatomic) NSDictionary* inTheatreMoviesJSON;
 @property (nonatomic) NSMutableData* rottenTomatoesResponseData;
 
 @end
