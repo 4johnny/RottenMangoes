@@ -91,11 +91,6 @@
 */
 
 
-- (IBAction)donePressed:(UIBarButtonItem *)sender {
-	
-	[self dismissViewControllerAnimated:YES completion:nil];
-}
-
 #
 # pragma mark Helpers
 #

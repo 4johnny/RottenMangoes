@@ -97,7 +97,7 @@
 		NSIndexPath* indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
 		Movie* movie = self.inTheatreMovies[indexPath.row];
 		
-		ReviewsViewController* controller = (ReviewsViewController*)[segue.destinationViewController topViewController];
+		ReviewsViewController* controller = (ReviewsViewController*)segue.destinationViewController;
 		controller.movie = movie;
 	}
 }

@@ -150,7 +150,7 @@
                                     <outlet property="synopsisLabel" destination="eax-H7-gvx" id="SUb-oo-NXE"/>
                                     <outlet property="titleLabel" destination="Eyj-el-uwx" id="lt6-Sv-NzW"/>
                                     <outlet property="yearLabel" destination="3am-cD-P3X" id="bH6-fS-M4T"/>
-                                    <segue destination="5X8-UD-wUM" kind="showDetail" identifier="showReviews" id="qzW-gV-YOF"/>
+                                    <segue destination="kqy-PI-4Px" kind="show" identifier="showReviews" id="Tpv-22-iHY"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -164,22 +164,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="edT-1P-ZVi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="945" y="350"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="GnK-aG-giy">
-            <objects>
-                <navigationController id="5X8-UD-wUM" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3sG-UJ-cND">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="kqy-PI-4Px" kind="relationship" relationship="rootViewController" id="e2O-f3-oFo"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GJY-J6-Nk2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="169" y="1098"/>
         </scene>
         <!--Reviews-->
         <scene sceneID="qCp-O8-sn9">
@@ -233,13 +217,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Reviews" id="cxS-0j-Tdw">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="H9a-Kv-KTV">
-                            <connections>
-                                <action selector="donePressed:" destination="kqy-PI-4Px" id="fdj-Ld-iAf"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Reviews" id="cxS-0j-Tdw"/>
                     <connections>
                         <outlet property="review1Label" destination="91L-LU-zHf" id="uai-Kx-6Wd"/>
                         <outlet property="review2Label" destination="Sdk-gm-r4g" id="n3h-fp-kZV"/>
