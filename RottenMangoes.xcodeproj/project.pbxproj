@@ -15,6 +15,7 @@
 		B20F2B301A82D7B400077B86 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20F2B2F1A82D7B400077B86 /* Images.xcassets */; };
 		B20F2B331A82D7B400077B86 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B20F2B311A82D7B400077B86 /* LaunchScreen.xib */; };
 		B20F2B3F1A82D7B400077B86 /* RottenMangoesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B20F2B3E1A82D7B400077B86 /* RottenMangoesTests.m */; };
+		B219A4721A830907000EB60A /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = B219A4711A830907000EB60A /* Movie.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		B20F2B3D1A82D7B400077B86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B20F2B3E1A82D7B400077B86 /* RottenMangoesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RottenMangoesTests.m; sourceTree = "<group>"; };
 		B20F2B481A82D83400077B86 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B219A4701A830907000EB60A /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		B219A4711A830907000EB60A /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 				B20F2B241A82D7B400077B86 /* AppDelegate.m */,
 				B20F2B291A82D7B400077B86 /* ViewController.h */,
 				B20F2B2A1A82D7B400077B86 /* ViewController.m */,
+				B219A4701A830907000EB60A /* Movie.h */,
+				B219A4711A830907000EB60A /* Movie.m */,
 				B20F2B2C1A82D7B400077B86 /* Main.storyboard */,
 				B20F2B261A82D7B400077B86 /* RottenMangoes.xcdatamodeld */,
 				B20F2B1F1A82D7B400077B86 /* Supporting Files */,
@@ -226,6 +231,7 @@
 			files = (
 				B20F2B251A82D7B400077B86 /* AppDelegate.m in Sources */,
 				B20F2B221A82D7B400077B86 /* main.m in Sources */,
+				B219A4721A830907000EB60A /* Movie.m in Sources */,
 				B20F2B2B1A82D7B400077B86 /* ViewController.m in Sources */,
 				B20F2B281A82D7B400077B86 /* RottenMangoes.xcdatamodeld in Sources */,
 			);
@@ -424,6 +430,7 @@
 				B20F2B441A82D7B400077B86 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B20F2B451A82D7B400077B86 /* Build configuration list for PBXNativeTarget "RottenMangoesTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +439,7 @@
 				B20F2B471A82D7B400077B86 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
