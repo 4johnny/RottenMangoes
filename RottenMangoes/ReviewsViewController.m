@@ -14,8 +14,6 @@
 
 #define JSON_REVIEWS_CMD_FORMAT	@"%@?page_limit=%d&apikey=%@"
 
-//http://api.rottentomatoes.com/api/public/v1.0/movies/771357000/reviews.json?apikey=xe4xau69pxaah5tmuryvrw75
-
 
 @interface ReviewsViewController ()
 
@@ -39,21 +37,17 @@
 	NSMutableString* commandStr = [NSMutableString stringWithFormat:JSON_REVIEWS_CMD_FORMAT, self.movie.reviewsURL.absoluteString, PAGE_LIMIT, API_KEY_ROTTEN_TOMATOES];
 	NSURL* commandUrl = [NSURL URLWithString:commandStr];
 	MDLog(@"%@", commandUrl)
-	NSMutableURLRequest* urlReq = [NSMutableURLRequest requestWithURL:commandUrl];
-	urlReq.HTTPMethod = @"GET";
 	
 	// Create and fire URL connection request
-	// TODO: Consider retain cycle due to self in block
-	// TODO: Consider NSURLSession instead of NSURLConnection
-	NSError* error = nil;
-	[NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-		
+	// NOTE: No retain cycle on self in block, since we know completion handler is run and discarded
+	NSURLSessionDataTask* dataTask = [[NSURLSession sharedSession] dataTaskWithURL:commandUrl completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
 		if (!data) {
 			MDLog(@"URL Connection Error - %@ %@", error.localizedDescription, [error.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
 			return;
 		}
 		
-		NSError* error = nil;
+		error = nil;
 		NSDictionary* reviewsJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
 		
 		if (!reviewsJSON) {
@@ -65,8 +59,14 @@
 		[self populateReviewsWithJSON:reviewsJSON];
 		MDLog(@"Reviews: %@", self.reviews);
 
-		[self configureView];
+		[self performSelectorOnMainThread:@selector(configureView) withObject:nil waitUntilDone:NO];
+		// dispatch_async(dispatch_get_main_queue(), ^{
+		//	[self configureView];
+		// }); // Works just as well, with finer-grain control options
+		// [self configureView]; // NOTE: Works, but UI should be on main thread
 	}];
+	
+	[dataTask resume];
 }
 
 

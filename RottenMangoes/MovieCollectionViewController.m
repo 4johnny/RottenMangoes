@@ -58,7 +58,7 @@
 	
 	// Create and fire URL connection request
 	//	[NSURLConnection connectionWithRequest:urlReq delegate:self]; // Fine-grain control via delegate
-	// TODO: Consider retain cycle due to self in block
+	// NOTE: No retain cycle on self in block, since we know completion handler is run and discarded
 	[NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 
 		if (!data) {
@@ -188,7 +188,7 @@
 	
 	// Determine if an action menu should be displayed for the specified item, and react to actions performed on the item
 	
-	return YES; // Default NO
+	return NO; // Default NO
 }
 
 
@@ -196,7 +196,7 @@
 	
 	// Determine if an action menu should be displayed for the specified item, and react to actions performed on the item
 	
-	return YES; // Default NO
+	return NO; // Default NO
 }
 
 
