@@ -10,6 +10,7 @@
 
 @interface MovieCollectionViewCell : UICollectionViewCell
 
+@property (weak, nonatomic) IBOutlet UILabel *resultNumberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *idLabel;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yearLabel;

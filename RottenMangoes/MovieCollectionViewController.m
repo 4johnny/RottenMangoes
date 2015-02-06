@@ -62,7 +62,7 @@
 	if ([segue.identifier isEqualToString:@"showReviews"]) {
 
 		NSIndexPath* indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
-		Movie* movie = self.inTheatreMovies[indexPath.row];
+		Movie* movie = self.inTheatreMovies[indexPath.item];
 		
 		ReviewsViewController* controller = (ReviewsViewController*)segue.destinationViewController;
 		controller.movie = movie;
@@ -93,7 +93,8 @@
 	
 	MovieCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"movieCollectionViewCell" forIndexPath:indexPath];
 	
-	Movie* movie = (Movie*)self.inTheatreMovies[indexPath.row];
+	Movie* movie = (Movie*)self.inTheatreMovies[indexPath.item];
+	cell.resultNumberLabel.text = [NSString stringWithFormat:@"%d", (int)indexPath.item];
 	cell.idLabel.text = movie.id;
 	cell.titleLabel.text = movie.title;
 	cell.yearLabel.text = [NSString stringWithFormat:@"%d", movie.year];
@@ -118,8 +119,8 @@
 	}
 	
 	if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
-		
-		// NOTE: If a footer is added, then dequeue the view here.
+
+//		[self loadPagedDataModel];
 		
 		return reusableView;
 	}
@@ -177,18 +178,18 @@
 # pragma mark <UICollectionViewDelegateFlowLayout>
 #
 
-/*
+
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
 
-	//	return CGSizeMake(200, 200);
+	return CGSizeMake(300, 300);
 
-	return ((UICollectionViewFlowLayout*)collectionViewLayout).itemSize;
+//	return ((UICollectionViewFlowLayout*)collectionViewLayout).itemSize;
 }
-*/
+
 
 -(UIEdgeInsets)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
 	
-	return UIEdgeInsetsMake(50, 50, 50, 50);
+	return UIEdgeInsetsMake(10, 10, 10, 10);
 
 //	return ((UICollectionViewFlowLayout*)collectionViewLayout).sectionInset;
 }
@@ -196,7 +197,7 @@
 
 - (CGFloat)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
 	
-	return 50;
+	return 10;
 	
 //	return ((UICollectionViewFlowLayout*)collectionViewLayout).minimumLineSpacing;
 }
@@ -291,13 +292,11 @@
 
 - (void)loadPagedDataModel {
 	
-	if (self.inTheatreMovies.count > self.totalInTheatreMovies) return;
-	
 	// Build Rotten Tomatoes API command URL
 	NSMutableString* commandStr = [NSMutableString stringWithFormat:API_BASE_URL_FORMAT, API_VER];
 	[commandStr appendFormat:JSON_CMD_IN_THEATRE_MOVIES_FORMAT, PAGE_LIMIT, self.currentPageNumber + 1, API_KEY_ROTTEN_TOMATOES];
 	NSURL* commandUrl = [NSURL URLWithString:commandStr];
-	// MDLog(@"%@", commandUrl)
+	MDLog(@"%@", commandUrl)
 	NSMutableURLRequest* urlReq = [NSMutableURLRequest requestWithURL:commandUrl];
 	urlReq.HTTPMethod = @"GET";
 	
@@ -311,17 +310,18 @@
 		}
 		
 		NSError* error = nil;
-		NSDictionary* moviesJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+		NSDictionary* moviesJSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
 		
-		if (!moviesJSON) {
+		if (!moviesJSONDictionary) {
 			MDLog(@"JSON Deserialization Error - %@ %@", error.localizedDescription, error.userInfo);
 			return;
 		}
-		
-		// MDLog(@"Movies JSON: %@", moviesJSON);
-		[self appendMoviesWithJSON:moviesJSON];
-		// MDLog(@"Movies: %@", self.inTheatreMovies);
+		// MDLog(@"Movies JSON: %@", moviesJSONDictionary);
 		self.currentPageNumber++;
+		
+		self.totalInTheatreMovies = ((NSString*)moviesJSONDictionary[@"total"]).intValue;
+		[self appendMoviesWithJSON:moviesJSONDictionary[@"movies"]];
+		// MDLog(@"Movies: %@", self.inTheatreMovies);
 		[self.collectionView reloadData];
 	}];
 	
@@ -329,9 +329,9 @@
 }
 
 
-- (void)appendMoviesWithJSON:(NSDictionary*)moviesJSON {
+- (void)appendMoviesWithJSON:(NSArray*)moviesJSON {
 
-	for (id movieJSON in moviesJSON[@"movies"]) {
+	for (id movieJSON in moviesJSON) {
 		
 		Movie* movie = [Movie movie];
 		movie.id = movieJSON[@"id"];
