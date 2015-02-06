@@ -11,9 +11,8 @@
 #import "ReviewsViewController.h"
 #import "Movie.h"
 
-
-#define PAGE_LIMIT	50
-#define PAGE_NUMBER	1
+#define API_PAGE_LIMIT_MAX	50
+#define PAGE_LIMIT	API_PAGE_LIMIT_MAX
 
 #define API_VER								@"v1.0"
 #define API_BASE_URL_FORMAT 				@"http://api.rottentomatoes.com/api/public/%@/"
@@ -23,6 +22,8 @@
 
 @interface MovieCollectionViewController ()
 
+@property (nonatomic) int totalInTheatreMovies;
+@property (nonatomic) int currentPageNumber;
 @property (nonatomic) NSMutableArray* inTheatreMovies;
 @property (nonatomic) NSMutableData* rottenTomatoesResponseData;
 
@@ -36,49 +37,16 @@
 # pragma mark UIViewController
 #
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	
-}
-
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 
+	self.totalInTheatreMovies = 0;
+	self.currentPageNumber = 0;
 	self.inTheatreMovies = [NSMutableArray array];
-	
-	// Build Rotten Tomatoes API command URL
-	NSMutableString* commandStr = [NSMutableString stringWithFormat:API_BASE_URL_FORMAT, API_VER];
-	[commandStr appendFormat:JSON_CMD_IN_THEATRE_MOVIES_FORMAT, PAGE_LIMIT, PAGE_NUMBER, API_KEY_ROTTEN_TOMATOES];
-	NSURL* commandUrl = [NSURL URLWithString:commandStr];
-	MDLog(@"%@", commandUrl)
-	NSMutableURLRequest* urlReq = [NSMutableURLRequest requestWithURL:commandUrl];
-	urlReq.HTTPMethod = @"GET";
-	
-	// Create and fire URL connection request
-	//	[NSURLConnection connectionWithRequest:urlReq delegate:self]; // Fine-grain control via delegate
-	// NOTE: No retain cycle on self in block, since we know completion handler is run and discarded
-	[NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 
-		if (!data) {
-		MDLog(@"URL Connection Error - %@ %@", connectionError.localizedDescription, [connectionError.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
-			return;
-		}
-
-		NSError* error = nil;
-		NSDictionary* moviesJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
-		
-		if (!moviesJSON) {
-			MDLog(@"JSON Deserialization Error - %@ %@", error.localizedDescription, error.userInfo);
-			return;
-		}
-		
-		MDLog(@"Movies JSON: %@", moviesJSON);
-		[self populateMoviesWithJSON:moviesJSON];
-		MDLog(@"Movies: %@", self.inTheatreMovies);
-
-		[self.collectionView reloadData];
-	}];
+	[self loadPagedDataModel];
 }
 
 
@@ -138,10 +106,9 @@
 }
 
 
-/*
 - (UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSupplementaryElementOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
 	
-	UICollectionReusableView* reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"reuseIdentifier" forIndexPath:indexPath];
+	UICollectionReusableView* reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"inTheatreMoviesFooter" forIndexPath:indexPath];
 	
 	// Configure the supplementary element: view or decoration
 	
@@ -154,14 +121,14 @@
 		
 		// NOTE: If a footer is added, then dequeue the view here.
 		
-		return nil;
+		return reusableView;
 	}
 	
 	return nil; // NOTE: We should never get here!
 }
-*/
 
 
+/*
 #
 # pragma mark <UICollectionViewDelegate>
 #
@@ -203,20 +170,21 @@
  
  // Determine if an action menu should be displayed for the specified item, and react to actions performed on the item
 }
+*/
 
 
 #
 # pragma mark <UICollectionViewDelegateFlowLayout>
 #
 
-
+/*
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
 
 	//	return CGSizeMake(200, 200);
 
 	return ((UICollectionViewFlowLayout*)collectionViewLayout).itemSize;
 }
-
+*/
 
 -(UIEdgeInsets)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
 	
@@ -241,7 +209,7 @@
 //	return ((UICollectionViewFlowLayout*)collectionViewLayout).minimumInteritemSpacing;
 }
 
-
+/*
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
  
 	//	return CGSizeMake(150, 150);
@@ -256,8 +224,9 @@
 	
 	return ((UICollectionViewFlowLayout*)collectionViewLayout).footerReferenceSize;
 }
+*/
 
-
+/*
 #
 # pragma mark <NSURLConnectionDataDelegate>
 #
@@ -296,7 +265,7 @@
 	}
 	
 	MDLog(@"Movies JSON: %@", moviesJSON);
-	[self populateMoviesWithJSON:moviesJSON];
+	[self appendMoviesWithJSON:moviesJSON];
 	MDLog(@"Movies: %@", self.inTheatreMovies);
 }
 
@@ -312,6 +281,7 @@
 	
 	self.rottenTomatoesResponseData = nil;
 }
+*/
 
 
 #
@@ -319,7 +289,47 @@
 #
 
 
-- (void)populateMoviesWithJSON:(NSDictionary*)moviesJSON {
+- (void)loadPagedDataModel {
+	
+	if (self.inTheatreMovies.count > self.totalInTheatreMovies) return;
+	
+	// Build Rotten Tomatoes API command URL
+	NSMutableString* commandStr = [NSMutableString stringWithFormat:API_BASE_URL_FORMAT, API_VER];
+	[commandStr appendFormat:JSON_CMD_IN_THEATRE_MOVIES_FORMAT, PAGE_LIMIT, self.currentPageNumber + 1, API_KEY_ROTTEN_TOMATOES];
+	NSURL* commandUrl = [NSURL URLWithString:commandStr];
+	// MDLog(@"%@", commandUrl)
+	NSMutableURLRequest* urlReq = [NSMutableURLRequest requestWithURL:commandUrl];
+	urlReq.HTTPMethod = @"GET";
+	
+	// Create and fire URL connection request
+	// NOTE: No retain cycle on self in block, since we know completion handler is run and discarded
+	[NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+		
+		if (!data) {
+			MDLog(@"URL Connection Error - %@ %@", connectionError.localizedDescription, [connectionError.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
+			return;
+		}
+		
+		NSError* error = nil;
+		NSDictionary* moviesJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+		
+		if (!moviesJSON) {
+			MDLog(@"JSON Deserialization Error - %@ %@", error.localizedDescription, error.userInfo);
+			return;
+		}
+		
+		// MDLog(@"Movies JSON: %@", moviesJSON);
+		[self appendMoviesWithJSON:moviesJSON];
+		// MDLog(@"Movies: %@", self.inTheatreMovies);
+		self.currentPageNumber++;
+		[self.collectionView reloadData];
+	}];
+	
+	// [NSURLConnection connectionWithRequest:urlReq delegate:self]; // Finer-grain control via delegate
+}
+
+
+- (void)appendMoviesWithJSON:(NSDictionary*)moviesJSON {
 
 	for (id movieJSON in moviesJSON[@"movies"]) {
 		

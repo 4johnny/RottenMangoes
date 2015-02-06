@@ -36,7 +36,7 @@
 	// Build Rotten Tomatoes API command URL
 	NSMutableString* commandStr = [NSMutableString stringWithFormat:JSON_REVIEWS_CMD_FORMAT, self.movie.reviewsURL.absoluteString, PAGE_LIMIT, API_KEY_ROTTEN_TOMATOES];
 	NSURL* commandUrl = [NSURL URLWithString:commandStr];
-	MDLog(@"%@", commandUrl)
+	// MDLog(@"%@", commandUrl)
 	
 	// Create and fire URL connection request
 	// NOTE: No retain cycle on self in block, since we know completion handler is run and discarded
@@ -55,9 +55,9 @@
 			return;
 		}
 		
-		MDLog(@"Reviews JSON: %@", reviewsJSON);
+		// MDLog(@"Reviews JSON: %@", reviewsJSON);
 		[self populateReviewsWithJSON:reviewsJSON];
-		MDLog(@"Reviews: %@", self.reviews);
+		// MDLog(@"Reviews: %@", self.reviews);
 
 		[self performSelectorOnMainThread:@selector(configureView) withObject:nil waitUntilDone:NO];
 		// dispatch_async(dispatch_get_main_queue(), ^{
