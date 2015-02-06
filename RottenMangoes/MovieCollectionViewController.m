@@ -94,7 +94,7 @@
 	MovieCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"movieCollectionViewCell" forIndexPath:indexPath];
 	
 	Movie* movie = (Movie*)self.inTheatreMovies[indexPath.item];
-	cell.resultNumberLabel.text = [NSString stringWithFormat:@"%d", (int)indexPath.item];
+	cell.resultNumberLabel.text = [NSString stringWithFormat:@"%d", (int)indexPath.item + 1];
 	cell.idLabel.text = movie.id;
 	cell.titleLabel.text = movie.title;
 	cell.yearLabel.text = [NSString stringWithFormat:@"%d", movie.year];
@@ -178,18 +178,18 @@
 # pragma mark <UICollectionViewDelegateFlowLayout>
 #
 
-
+/*
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
 
-	return CGSizeMake(300, 300);
+//	return CGSizeMake(300, 300);
 
-//	return ((UICollectionViewFlowLayout*)collectionViewLayout).itemSize;
+	return ((UICollectionViewFlowLayout*)collectionViewLayout).itemSize;
 }
-
+*/
 
 -(UIEdgeInsets)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
 	
-	return UIEdgeInsetsMake(10, 10, 10, 10);
+	return UIEdgeInsetsMake(15, 15, 15, 15);
 
 //	return ((UICollectionViewFlowLayout*)collectionViewLayout).sectionInset;
 }
@@ -197,7 +197,7 @@
 
 - (CGFloat)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
 	
-	return 10;
+	return 15;
 	
 //	return ((UICollectionViewFlowLayout*)collectionViewLayout).minimumLineSpacing;
 }
