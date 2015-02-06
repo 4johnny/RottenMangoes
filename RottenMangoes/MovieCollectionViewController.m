@@ -26,6 +26,8 @@
 #define JSON_CMD_IN_THEATRE_MOVIES_FORMAT	@"lists/movies/in_theaters.json?page_limit=%d&page=%d&apikey=%@"
 //#define JSON_CMD_IN_THEATRE_MOVIES_FORMAT	@"lists/movies/in_theaters.json?_prettyprint=true&page_limit=%d&page=%d&apikey=%@"
 
+#define CELL_BUFFER_SIZE	10 // Points
+
 
 #
 # pragma mark - Interface
@@ -198,18 +200,35 @@
 # pragma mark <UICollectionViewDelegateFlowLayout>
 #
 
-/*
+
 - (CGSize)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath*)indexPath {
 
-//	return CGSizeMake(300, 300);
+	CGFloat width = self.collectionView.bounds.size.width;
+	CGFloat height = self.collectionView.bounds.size.height;
+	
+	switch ([UIDevice currentDevice].orientation) {
+		case UIDeviceOrientationPortrait:
+		case UIDeviceOrientationPortraitUpsideDown:
+		case UIDeviceOrientationFaceUp:
+		case UIDeviceOrientationFaceDown:
+			return CGSizeMake(width - CELL_BUFFER_SIZE * 2, height - CELL_BUFFER_SIZE * 2);
+			
+		case UIDeviceOrientationLandscapeLeft:
+		case UIDeviceOrientationLandscapeRight:
+			return CGSizeMake(width - CELL_BUFFER_SIZE * 2, height);
+			
+		case UIDeviceOrientationUnknown:
+			break;
+	}
 
+	// return CGSizeMake(315, 315);
 	return ((UICollectionViewFlowLayout*)collectionViewLayout).itemSize;
 }
-*/
+
 
 -(UIEdgeInsets)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
 	
-	return UIEdgeInsetsMake(15, 15, 15, 15);
+	return UIEdgeInsetsMake(CELL_BUFFER_SIZE, CELL_BUFFER_SIZE, CELL_BUFFER_SIZE, CELL_BUFFER_SIZE);
 
 //	return ((UICollectionViewFlowLayout*)collectionViewLayout).sectionInset;
 }
@@ -217,7 +236,22 @@
 
 - (CGFloat)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
 	
-	return 15;
+	switch ([UIDevice currentDevice].orientation) {
+		case UIDeviceOrientationPortrait:
+		case UIDeviceOrientationPortraitUpsideDown:
+		case UIDeviceOrientationFaceUp:
+		case UIDeviceOrientationFaceDown:
+			return CELL_BUFFER_SIZE;
+			
+		case UIDeviceOrientationLandscapeLeft:
+		case UIDeviceOrientationLandscapeRight:
+			return CELL_BUFFER_SIZE;
+			
+		case UIDeviceOrientationUnknown:
+			break;
+	}
+
+	return CELL_BUFFER_SIZE;
 	
 //	return ((UICollectionViewFlowLayout*)collectionViewLayout).minimumLineSpacing;
 }
@@ -225,7 +259,22 @@
 
 - (CGFloat)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
 	
-	return 15;
+	switch ([UIDevice currentDevice].orientation) {
+		case UIDeviceOrientationPortrait:
+		case UIDeviceOrientationPortraitUpsideDown:
+		case UIDeviceOrientationFaceUp:
+		case UIDeviceOrientationFaceDown:
+			return CELL_BUFFER_SIZE;
+			
+		case UIDeviceOrientationLandscapeLeft:
+		case UIDeviceOrientationLandscapeRight:
+			return CELL_BUFFER_SIZE;
+			
+		case UIDeviceOrientationUnknown:
+			break;
+	}
+	
+	return CELL_BUFFER_SIZE;
 	
 //	return ((UICollectionViewFlowLayout*)collectionViewLayout).minimumInteritemSpacing;
 }
@@ -303,6 +352,18 @@
 	self.rottenTomatoesResponseData = nil;
 }
 */
+
+
+#
+# pragma mark <UIContentContainer>
+#
+
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+	
+	// Happens when orientation changes
+	// Force layout to redraw
+	[self.collectionViewLayout invalidateLayout];
+}
 
 
 #
