@@ -8,11 +8,18 @@
 
 #import "MovieCollectionViewController.h"
 #import "MovieCollectionViewCell.h"
+#import "FooterCollectionReusableView.h"
 #import "ReviewsViewController.h"
 #import "Movie.h"
 
+
+#
+# pragma mark - Constants
+#
+
+
 #define API_PAGE_LIMIT_MAX	50
-#define PAGE_LIMIT	API_PAGE_LIMIT_MAX
+#define PAGE_LIMIT			((int)API_PAGE_LIMIT_MAX)
 
 #define API_VER								@"v1.0"
 #define API_BASE_URL_FORMAT 				@"http://api.rottentomatoes.com/api/public/%@/"
@@ -20,7 +27,16 @@
 //#define JSON_CMD_IN_THEATRE_MOVIES_FORMAT	@"lists/movies/in_theaters.json?_prettyprint=true&page_limit=%d&page=%d&apikey=%@"
 
 
+#
+# pragma mark - Interface
+#
+
+
 @interface MovieCollectionViewController ()
+
+#
+# pragma mark Properties
+#
 
 @property (nonatomic) int totalInTheatreMovies;
 @property (nonatomic) int currentPageNumber;
@@ -28,6 +44,11 @@
 @property (nonatomic) NSMutableData* rottenTomatoesResponseData;
 
 @end
+
+
+#
+# pragma mark - Implementation
+#
 
 
 @implementation MovieCollectionViewController
@@ -45,8 +66,6 @@
 	self.totalInTheatreMovies = 0;
 	self.currentPageNumber = 0;
 	self.inTheatreMovies = [NSMutableArray array];
-
-	[self loadPagedDataModel];
 }
 
 
@@ -108,9 +127,7 @@
 
 
 - (UICollectionReusableView*)collectionView:(UICollectionView*)collectionView viewForSupplementaryElementOfKind:(NSString*)kind atIndexPath:(NSIndexPath*)indexPath {
-	
-	UICollectionReusableView* reusableView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"inTheatreMoviesFooter" forIndexPath:indexPath];
-	
+
 	// Configure the supplementary element: view or decoration
 	
 	if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
@@ -120,9 +137,12 @@
 	
 	if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
 
-//		[self loadPagedDataModel];
+		FooterCollectionReusableView* footerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"inTheatreMoviesFooter" forIndexPath:indexPath];
 		
-		return reusableView;
+		// Lazy-load data when footer becomes visible
+		[self loadPagedDataModel:footerView];
+		
+		return footerView;
 	}
 	
 	return nil; // NOTE: We should never get here!
@@ -205,7 +225,7 @@
 
 - (CGFloat)collectionView:(UICollectionView*)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
 	
-	return 50;
+	return 15;
 	
 //	return ((UICollectionViewFlowLayout*)collectionViewLayout).minimumInteritemSpacing;
 }
@@ -290,7 +310,12 @@
 #
 
 
-- (void)loadPagedDataModel {
+- (void)loadPagedDataModel:(FooterCollectionReusableView*)footerView {
+	
+	// If we have retrieved all pages of data, we are done.
+	if (self.currentPageNumber >= (self.totalInTheatreMovies / PAGE_LIMIT) + 1) return;
+	
+	[self showLoadingUI:footerView];
 	
 	// Build Rotten Tomatoes API command URL
 	NSMutableString* commandStr = [NSMutableString stringWithFormat:API_BASE_URL_FORMAT, API_VER];
@@ -306,6 +331,7 @@
 		
 		if (!data) {
 			MDLog(@"URL Connection Error - %@ %@", connectionError.localizedDescription, [connectionError.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
+			[self cancelLoadingUI:footerView];
 			return;
 		}
 		
@@ -314,6 +340,7 @@
 		
 		if (!moviesJSONDictionary) {
 			MDLog(@"JSON Deserialization Error - %@ %@", error.localizedDescription, error.userInfo);
+			[self cancelLoadingUI:footerView];
 			return;
 		}
 		// MDLog(@"Movies JSON: %@", moviesJSONDictionary);
@@ -323,6 +350,7 @@
 		[self appendMoviesWithJSON:moviesJSONDictionary[@"movies"]];
 		// MDLog(@"Movies: %@", self.inTheatreMovies);
 		[self.collectionView reloadData];
+		[self cancelLoadingUI:footerView];
 	}];
 	
 	// [NSURLConnection connectionWithRequest:urlReq delegate:self]; // Finer-grain control via delegate
@@ -345,6 +373,20 @@
 		
 		[self.inTheatreMovies addObject:movie];
 	}
+}
+
+
+- (void)showLoadingUI:(FooterCollectionReusableView*)footerView {
+
+	footerView.noMoreMoviesLabel.hidden = YES;
+	[footerView.loadingMoviesActivityIndicatorView startAnimating];
+}
+
+
+- (void)cancelLoadingUI:(FooterCollectionReusableView*)footerView {
+
+	[footerView.loadingMoviesActivityIndicatorView stopAnimating];
+	footerView.noMoreMoviesLabel.hidden = NO;
 }
 
 

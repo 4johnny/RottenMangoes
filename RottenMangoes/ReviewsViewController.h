@@ -17,4 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *review2Label;
 @property (weak, nonatomic) IBOutlet UILabel *review3Label;
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingReviewsActivityIndicatorView;
+
 @end
