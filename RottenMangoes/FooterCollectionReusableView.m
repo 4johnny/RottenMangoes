@@ -10,4 +10,19 @@
 
 @implementation FooterCollectionReusableView
 
+
+- (void)showLoadingUI {
+	
+	self.noMoreMoviesLabel.hidden = YES;
+	[self.loadingMoviesActivityIndicatorView startAnimating];
+}
+
+
+- (void)cancelLoadingUI {
+	
+	[self.loadingMoviesActivityIndicatorView stopAnimating];
+	self.noMoreMoviesLabel.hidden = NO;
+}
+
+
 @end

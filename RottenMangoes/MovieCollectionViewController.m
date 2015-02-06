@@ -215,7 +215,7 @@
 			
 		case UIDeviceOrientationLandscapeLeft:
 		case UIDeviceOrientationLandscapeRight:
-			return CGSizeMake(width - CELL_BUFFER_SIZE * 2, height);
+			return CGSizeMake(width - CELL_BUFFER_SIZE * 2, height); //- CELL_BUFFER_SIZE * 2);
 			
 		case UIDeviceOrientationUnknown:
 			break;
@@ -376,7 +376,7 @@
 	// If we have retrieved all pages of data, we are done.
 	if (self.currentPageNumber >= (self.totalInTheatreMovies / PAGE_LIMIT) + 1) return;
 	
-	[self showLoadingUI:footerView];
+	[footerView showLoadingUI];
 	
 	// Build Rotten Tomatoes API command URL
 	NSMutableString* commandStr = [NSMutableString stringWithFormat:API_BASE_URL_FORMAT, API_VER];
@@ -392,7 +392,7 @@
 		
 		if (!data) {
 			MDLog(@"URL Connection Error - %@ %@", connectionError.localizedDescription, [connectionError.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
-			[self cancelLoadingUI:footerView];
+			[footerView cancelLoadingUI];
 			return;
 		}
 		
@@ -401,7 +401,7 @@
 		
 		if (!moviesJSONDictionary) {
 			MDLog(@"JSON Deserialization Error - %@ %@", error.localizedDescription, error.userInfo);
-			[self cancelLoadingUI:footerView];
+			[footerView cancelLoadingUI];
 			return;
 		}
 		// MDLog(@"Movies JSON: %@", moviesJSONDictionary);
@@ -411,7 +411,7 @@
 		[self appendMoviesWithJSON:moviesJSONDictionary[@"movies"]];
 		// MDLog(@"Movies: %@", self.inTheatreMovies);
 		[self.collectionView reloadData];
-		[self cancelLoadingUI:footerView];
+		[footerView cancelLoadingUI];
 	}];
 	
 	// [NSURLConnection connectionWithRequest:urlReq delegate:self]; // Finer-grain control via delegate
@@ -434,20 +434,6 @@
 		
 		[self.inTheatreMovies addObject:movie];
 	}
-}
-
-
-- (void)showLoadingUI:(FooterCollectionReusableView*)footerView {
-
-	footerView.noMoreMoviesLabel.hidden = YES;
-	[footerView.loadingMoviesActivityIndicatorView startAnimating];
-}
-
-
-- (void)cancelLoadingUI:(FooterCollectionReusableView*)footerView {
-
-	[footerView.loadingMoviesActivityIndicatorView stopAnimating];
-	footerView.noMoreMoviesLabel.hidden = NO;
 }
 
 

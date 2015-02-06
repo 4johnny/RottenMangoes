@@ -13,4 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingMoviesActivityIndicatorView;
 @property (weak, nonatomic) IBOutlet UILabel *noMoreMoviesLabel;
 
+- (void)showLoadingUI;
+- (void)cancelLoadingUI;
+
 @end
