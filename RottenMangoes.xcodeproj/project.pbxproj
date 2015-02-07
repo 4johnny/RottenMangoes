@@ -109,6 +109,7 @@
 				B219A4701A830907000EB60A /* Movie.h */,
 				B219A4711A830907000EB60A /* Movie.m */,
 				B20F2B2C1A82D7B400077B86 /* Main.storyboard */,
+				B20F2B261A82D7B400077B86 /* RottenMangoes.xcdatamodeld */,
 				B20F2B1F1A82D7B400077B86 /* Supporting Files */,
 			);
 			path = RottenMangoes;
@@ -117,7 +118,6 @@
 		B20F2B1F1A82D7B400077B86 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B20F2B261A82D7B400077B86 /* RottenMangoes.xcdatamodeld */,
 				B20F2B2F1A82D7B400077B86 /* Images.xcassets */,
 				B20F2B311A82D7B400077B86 /* LaunchScreen.xib */,
 				B20F2B481A82D83400077B86 /* PrefixHeader.pch */,

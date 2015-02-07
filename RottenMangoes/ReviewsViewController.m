@@ -51,16 +51,16 @@
 		}
 		
 		error = nil;
-		NSDictionary* reviewsJSON = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+		NSDictionary* reviewsJSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
 		
-		if (!reviewsJSON) {
+		if (!reviewsJSONDictionary) {
 			MDLog(@"JSON Deserialization Error - %@ %@", error.localizedDescription, error.userInfo);
 			[self performSelectorOnMainThread:@selector(cancelLoadingUI) withObject:nil waitUntilDone:NO];
 			return;
 		}
 		
-		// MDLog(@"Reviews JSON: %@", reviewsJSON);
-		[self populateReviewsWithJSON:reviewsJSON];
+		// MDLog(@"Reviews JSON: %@", reviewsJSONDictionary);
+		[self populateReviewsWithJSON:reviewsJSONDictionary[@"reviews"]];
 		// MDLog(@"Reviews: %@", self.reviews);
 
 		[self performSelectorOnMainThread:@selector(configureView) withObject:nil waitUntilDone:NO];
@@ -102,9 +102,9 @@
 #
 
 
-- (void)populateReviewsWithJSON:(NSDictionary*)reviewsJSON {
+- (void)populateReviewsWithJSON:(NSArray*)reviewsJSON {
 	
-	for (id reviewJSON in reviewsJSON[@"reviews"]) {
+	for (id reviewJSON in reviewsJSON) {
 
 		NSString* review = reviewJSON[@"quote"];
 
