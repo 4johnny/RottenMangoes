@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Movie.h"
 
-@interface ReviewsViewController : UIViewController
+@interface ReviewsViewController : UIViewController <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic) Movie* movie;
 

@@ -15,9 +15,12 @@
 		B20F2B301A82D7B400077B86 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B20F2B2F1A82D7B400077B86 /* Images.xcassets */; };
 		B20F2B331A82D7B400077B86 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B20F2B311A82D7B400077B86 /* LaunchScreen.xib */; };
 		B20F2B3F1A82D7B400077B86 /* RottenMangoesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B20F2B3E1A82D7B400077B86 /* RottenMangoesTests.m */; };
-		B219A4721A830907000EB60A /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = B219A4711A830907000EB60A /* Movie.m */; };
 		B219A4751A833E67000EB60A /* MovieCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B219A4741A833E67000EB60A /* MovieCollectionViewCell.m */; };
 		B219A4781A835CF0000EB60A /* ReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B219A4771A835CF0000EB60A /* ReviewsViewController.m */; };
+		B28927861A875A6B00C43D58 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = B28927851A875A6B00C43D58 /* Movie.m */; };
+		B2A2DE891A87543000E152EC /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2DE881A87543000E152EC /* Review.m */; };
+		B2A2DE8F1A87543100E152EC /* ShowTime.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2DE8E1A87543100E152EC /* ShowTime.m */; };
+		B2A2DE921A87543100E152EC /* Theatre.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2DE911A87543100E152EC /* Theatre.m */; };
 		B2AEADFE1A8492F900A73EBE /* FooterCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2AEADFD1A8492F900A73EBE /* FooterCollectionReusableView.m */; };
 /* End PBXBuildFile section */
 
@@ -47,12 +50,18 @@
 		B20F2B3D1A82D7B400077B86 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B20F2B3E1A82D7B400077B86 /* RottenMangoesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RottenMangoesTests.m; sourceTree = "<group>"; };
 		B20F2B481A82D83400077B86 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		B219A4701A830907000EB60A /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
-		B219A4711A830907000EB60A /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 		B219A4731A833E67000EB60A /* MovieCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieCollectionViewCell.h; sourceTree = "<group>"; };
 		B219A4741A833E67000EB60A /* MovieCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MovieCollectionViewCell.m; sourceTree = "<group>"; };
 		B219A4761A835CF0000EB60A /* ReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewsViewController.h; sourceTree = "<group>"; };
 		B219A4771A835CF0000EB60A /* ReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewsViewController.m; sourceTree = "<group>"; };
+		B28927841A875A6B00C43D58 /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
+		B28927851A875A6B00C43D58 /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
+		B2A2DE871A87543000E152EC /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
+		B2A2DE881A87543000E152EC /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Review.m; sourceTree = "<group>"; };
+		B2A2DE8D1A87543100E152EC /* ShowTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowTime.h; sourceTree = "<group>"; };
+		B2A2DE8E1A87543100E152EC /* ShowTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTime.m; sourceTree = "<group>"; };
+		B2A2DE901A87543100E152EC /* Theatre.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Theatre.h; sourceTree = "<group>"; };
+		B2A2DE911A87543100E152EC /* Theatre.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Theatre.m; sourceTree = "<group>"; };
 		B2AEADFC1A8492F900A73EBE /* FooterCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterCollectionReusableView.h; sourceTree = "<group>"; };
 		B2AEADFD1A8492F900A73EBE /* FooterCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterCollectionReusableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,8 +115,14 @@
 				B2AEADFD1A8492F900A73EBE /* FooterCollectionReusableView.m */,
 				B219A4761A835CF0000EB60A /* ReviewsViewController.h */,
 				B219A4771A835CF0000EB60A /* ReviewsViewController.m */,
-				B219A4701A830907000EB60A /* Movie.h */,
-				B219A4711A830907000EB60A /* Movie.m */,
+				B28927841A875A6B00C43D58 /* Movie.h */,
+				B28927851A875A6B00C43D58 /* Movie.m */,
+				B2A2DE871A87543000E152EC /* Review.h */,
+				B2A2DE881A87543000E152EC /* Review.m */,
+				B2A2DE8D1A87543100E152EC /* ShowTime.h */,
+				B2A2DE8E1A87543100E152EC /* ShowTime.m */,
+				B2A2DE901A87543100E152EC /* Theatre.h */,
+				B2A2DE911A87543100E152EC /* Theatre.m */,
 				B20F2B2C1A82D7B400077B86 /* Main.storyboard */,
 				B20F2B261A82D7B400077B86 /* RottenMangoes.xcdatamodeld */,
 				B20F2B1F1A82D7B400077B86 /* Supporting Files */,
@@ -246,10 +261,13 @@
 			files = (
 				B20F2B251A82D7B400077B86 /* AppDelegate.m in Sources */,
 				B20F2B221A82D7B400077B86 /* main.m in Sources */,
+				B2A2DE891A87543000E152EC /* Review.m in Sources */,
+				B2A2DE8F1A87543100E152EC /* ShowTime.m in Sources */,
 				B2AEADFE1A8492F900A73EBE /* FooterCollectionReusableView.m in Sources */,
 				B219A4781A835CF0000EB60A /* ReviewsViewController.m in Sources */,
-				B219A4721A830907000EB60A /* Movie.m in Sources */,
+				B28927861A875A6B00C43D58 /* Movie.m in Sources */,
 				B20F2B2B1A82D7B400077B86 /* MovieCollectionViewController.m in Sources */,
+				B2A2DE921A87543100E152EC /* Theatre.m in Sources */,
 				B20F2B281A82D7B400077B86 /* RottenMangoes.xcdatamodeld in Sources */,
 				B219A4751A833E67000EB60A /* MovieCollectionViewCell.m in Sources */,
 			);

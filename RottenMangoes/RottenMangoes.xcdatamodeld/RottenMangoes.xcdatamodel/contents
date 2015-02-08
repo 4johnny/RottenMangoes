@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Movie" syncable="YES">
+    <entity name="Movie" representedClassName="Movie" syncable="YES">
         <attribute name="criticsConsensus" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="mpaaRating" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="posterImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="reviewsURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="runtime" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="synopsis" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
@@ -12,7 +13,7 @@
         <relationship name="reviews" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Review" inverseName="movie" inverseEntity="Review" syncable="YES"/>
         <relationship name="showTimes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShowTime" inverseName="movie" inverseEntity="ShowTime" syncable="YES"/>
     </entity>
-    <entity name="Review" syncable="YES">
+    <entity name="Review" representedClassName="Review" syncable="YES">
         <attribute name="critic" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="freshness" optional="YES" attributeType="String" syncable="YES"/>
@@ -20,14 +21,14 @@
         <attribute name="quote" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="movie" maxCount="1" deletionRule="Nullify" destinationEntity="Movie" inverseName="reviews" inverseEntity="Movie" syncable="YES"/>
     </entity>
-    <entity name="ShowTime" syncable="YES">
+    <entity name="ShowTime" representedClassName="ShowTime" syncable="YES">
         <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="lastUpdated" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="movie" maxCount="1" deletionRule="Nullify" destinationEntity="Movie" inverseName="showTimes" inverseEntity="Movie" syncable="YES"/>
         <relationship name="theatre" maxCount="1" deletionRule="Nullify" destinationEntity="Theatre" inverseName="showTimes" inverseEntity="Theatre" syncable="YES"/>
     </entity>
-    <entity name="Theatre" syncable="YES">
+    <entity name="Theatre" representedClassName="Theatre" syncable="YES">
         <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
@@ -36,9 +37,9 @@
         <relationship name="showTimes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ShowTime" inverseName="theatre" inverseEntity="ShowTime" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Movie" positionX="-477" positionY="-1" width="128" height="193"/>
-        <element name="Theatre" positionX="-92" positionY="54" width="128" height="133"/>
-        <element name="ShowTime" positionX="-288" positionY="81" width="128" height="118"/>
+        <element name="Movie" positionX="-477" positionY="-1" width="128" height="208"/>
         <element name="Review" positionX="-477" positionY="261" width="128" height="133"/>
+        <element name="ShowTime" positionX="-288" positionY="81" width="128" height="118"/>
+        <element name="Theatre" positionX="-92" positionY="54" width="128" height="133"/>
     </elements>
 </model>

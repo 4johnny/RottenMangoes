@@ -166,7 +166,16 @@
                         </connections>
                     </collectionView>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="In Theatre Movies" id="V6s-NN-Dbd"/>
+                    <navigationItem key="navigationItem" title="In Theatre Movies" id="V6s-NN-Dbd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="zlQ-OX-UJg">
+                            <connections>
+                                <action selector="refreshPressed:" destination="mEY-hK-mBT" id="YmI-dY-2gg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="refreshBarButton" destination="zlQ-OX-UJg" id="0D2-re-uC9"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="edT-1P-ZVi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
