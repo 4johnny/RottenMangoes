@@ -66,7 +66,7 @@
 	
 	// Edit the section name key path and cache name if appropriate.
 	// nil for section name key path means "no sections".
-	_reviewsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.movie.managedObjectContext sectionNameKeyPath:nil cacheName:@"MocCacheReviews"];
+	_reviewsFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.movie.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 	_reviewsFetchedResultsController.delegate = self;
 	
 	NSError *error = nil;

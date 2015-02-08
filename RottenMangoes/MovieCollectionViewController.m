@@ -20,7 +20,7 @@
 #
 
 
-#define API_PAGE_LIMIT_MAX	50
+#define API_PAGE_LIMIT_MAX	10
 #define PAGE_LIMIT			((int)API_PAGE_LIMIT_MAX)
 
 #define API_VER								@"v1.0"
