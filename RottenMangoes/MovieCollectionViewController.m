@@ -27,6 +27,8 @@
 #define API_BASE_URL_FORMAT 				@"http://api.rottentomatoes.com/api/public/%@/"
 #define JSON_CMD_IN_THEATRE_MOVIES_FORMAT	@"lists/movies/in_theaters.json?page_limit=%d&page=%d&apikey=%@"
 
+#define CACHE_NAME_MOVIES	@"MocCacheMovies"
+
 #define CELL_BUFFER_SIZE	10 // Points
 
 
@@ -75,7 +77,7 @@
 	
 	// Edit the section name key path and cache name if appropriate.
 	// nil for section name key path means "no sections".
-	_moviesFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"MocCacheMovies"];
+	_moviesFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:CACHE_NAME_MOVIES];
 	_moviesFetchedResultsController.delegate = self;
 	
 	NSError *error = nil;
@@ -589,6 +591,8 @@
 		
 		[moc deleteObject:movie];
 	}
+	
+	[NSFetchedResultsController deleteCacheWithName:CACHE_NAME_MOVIES];
 
 	[MovieCollectionViewController saveManagedObjectContext];
 }

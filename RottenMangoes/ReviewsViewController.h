@@ -13,9 +13,17 @@
 
 @property (nonatomic) Movie* movie;
 
-@property (weak, nonatomic) IBOutlet UILabel *review1Label;
-@property (weak, nonatomic) IBOutlet UILabel *review2Label;
-@property (weak, nonatomic) IBOutlet UILabel *review3Label;
+@property (weak, nonatomic) IBOutlet UILabel *date1Label;
+@property (weak, nonatomic) IBOutlet UILabel *critic1Label;
+@property (weak, nonatomic) IBOutlet UILabel *quote1Label;
+
+@property (weak, nonatomic) IBOutlet UILabel *date2Label;
+@property (weak, nonatomic) IBOutlet UILabel *critic2Label;
+@property (weak, nonatomic) IBOutlet UILabel *quote2Label;
+
+@property (weak, nonatomic) IBOutlet UILabel *date3Label;
+@property (weak, nonatomic) IBOutlet UILabel *critic3Label;
+@property (weak, nonatomic) IBOutlet UILabel *quote3Label;
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingReviewsActivityIndicatorView;
 

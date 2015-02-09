@@ -62,7 +62,7 @@
 	fetchRequest.fetchBatchSize = PAGE_LIMIT;
 	fetchRequest.fetchLimit = PAGE_LIMIT;
 	fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]];
-//	fetchRequest.predicate = [NSPredicate predicateWithFormat:@"movie.id == %@", self.movie.id];
+	fetchRequest.predicate = [NSPredicate predicateWithFormat:@"movie.id == %@", self.movie.id];
 	
 	// Edit the section name key path and cache name if appropriate.
 	// nil for section name key path means "no sections".
@@ -201,9 +201,17 @@
 
 - (void)initializeView {
 
-	self.review1Label.hidden = YES;
-	self.review2Label.hidden = YES;
-	self.review3Label.hidden = YES;
+	self.date1Label.hidden = YES;
+	self.critic1Label.hidden = YES;
+	self.quote1Label.hidden = YES;
+
+	self.date2Label.hidden = YES;
+	self.critic2Label.hidden = YES;
+	self.quote2Label.hidden = YES;
+
+	self.date3Label.hidden = YES;
+	self.critic3Label.hidden = YES;
+	self.quote3Label.hidden = YES;
 }
 
 
@@ -212,36 +220,56 @@
 	// Configure up to 3 reviews
 	NSUInteger reviewsCount = self.reviewsFetchedResultsController.fetchedObjects.count;
 	
+	// If no review, borrow a label to say so
 	if (reviewsCount < 1) {
-		self.review1Label.text = @"No reviews";
+		self.quote1Label.text = @"No reviews";
+		self.quote1Label.hidden = NO;
 		return;
 	}
+
+	NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+	dateFormatter.dateFormat = @"MMM d, yyyy";
 	
-	self.review1Label.text = ((Review *)self.reviewsFetchedResultsController.fetchedObjects[0]).quote;
-	self.review1Label.hidden = NO;
+	Review* review = self.reviewsFetchedResultsController.fetchedObjects[0];
+	self.date1Label.text = [dateFormatter stringFromDate:review.date];
+	self.date1Label.hidden = NO;
+	self.critic1Label.text = review.critic;
+	self.critic1Label.hidden = NO;
+	self.quote1Label.text = review.quote;
+	self.quote1Label.hidden = NO;
 	
 	if (reviewsCount < 2) return;
 	
-	self.review2Label.text = ((Review *)self.reviewsFetchedResultsController.fetchedObjects[1]).quote;
-	self.review2Label.hidden = NO;
+	review = self.reviewsFetchedResultsController.fetchedObjects[1];
+	self.date2Label.text = [dateFormatter stringFromDate:review.date];
+	self.date2Label.hidden = NO;
+	self.critic2Label.text = review.critic;
+	self.critic2Label.hidden = NO;
+	self.quote2Label.text = review.quote;
+	self.quote2Label.hidden = NO;
 	
 	if (reviewsCount < 3) return;
 	
-	self.review3Label.text = ((Review *)self.reviewsFetchedResultsController.fetchedObjects[2]).quote;
-	self.review3Label.hidden = NO;
+	review = self.reviewsFetchedResultsController.fetchedObjects[2];
+	self.date3Label.text = [dateFormatter stringFromDate:review.date];
+	self.date3Label.hidden = NO;
+	self.critic3Label.text = review.critic;
+	self.critic3Label.hidden = NO;
+	self.quote3Label.text = review.quote;
+	self.quote3Label.hidden = NO;
 }
 
 
 - (void)showLoadingUI {
 	
-	self.review1Label.hidden = YES;
+	self.quote1Label.hidden = YES;
 	[self.loadingReviewsActivityIndicatorView startAnimating];
 }
 
 
 - (void)cancelLoadingUI {
 	
-	self.review1Label.hidden = NO;
+	self.quote1Label.hidden = NO;
 	[self.loadingReviewsActivityIndicatorView stopAnimating];
 }
 
