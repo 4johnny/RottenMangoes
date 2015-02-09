@@ -118,8 +118,8 @@
 
 		NSIndexPath* indexPath = [[self.collectionView indexPathsForSelectedItems] firstObject];
 		
+		// Inject movie model into reviews view controller
 		Movie* movie = [self.moviesFetchedResultsController objectAtIndexPath:indexPath];
-
 		ReviewsViewController* reviewsViewController = (ReviewsViewController*)segue.destinationViewController;
 		reviewsViewController.movie = movie;
 	}
@@ -471,6 +471,7 @@
 */
 
 
+// NOTE: DO NOT COMMENT OUT!
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	
 	// NOTE: Even if method is empty, at least one protocol method must be implemented for fetch-results controller to track changes

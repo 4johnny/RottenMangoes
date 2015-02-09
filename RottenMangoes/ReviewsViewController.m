@@ -30,13 +30,11 @@
 
 @interface ReviewsViewController ()
 
-
 #
 # pragma mark Properties
 #
 
 @property (strong, nonatomic) NSFetchedResultsController *reviewsFetchedResultsController;
-
 
 @end
 
@@ -135,6 +133,7 @@
 		[self performSelectorOnMainThread:@selector(cancelLoadingUI) withObject:nil waitUntilDone:NO];
 	}];
 	
+	// NOTE: Do not forget to resume task!
 	[dataTask resume];
 }
 
