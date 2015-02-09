@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F1EEB33B-B021-46B7-AC25-4CD2ECF46ED6</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RottenMangoes</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>59E1072FB694792AE69371AC8FB18410921D1B50</key>
+		<string>https://github.com/4johnny/RottenMangoes.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RottenMangoes.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>59E1072FB694792AE69371AC8FB18410921D1B50</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/4johnny/RottenMangoes.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>59E1072FB694792AE69371AC8FB18410921D1B50</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>59E1072FB694792AE69371AC8FB18410921D1B50</string>
+			<key>IDESourceControlWCCName</key>
+			<string>RottenMangoes</string>
+		</dict>
+	</array>
+</dict>
+</plist>
