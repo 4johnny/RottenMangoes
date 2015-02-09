@@ -9,6 +9,7 @@
 #import "ReviewsViewController.h"
 #import "AppDelegate.h"
 #import "Review.h"
+#import "TheatreMapViewController.h"
 
 
 #
@@ -150,13 +151,17 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+	
+	if ([segue.identifier isEqualToString:@"showTheatreMap"]) {
+		
+		TheatreMapViewController* theatreMapViewController = (TheatreMapViewController*)segue.destinationViewController;
+		theatreMapViewController.movie = self.movie;
+	}
 }
-*/
 
 
 #
@@ -167,6 +172,17 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	
 	// NOTE: Even if method is empty, at least one protocol method must be implemented for fetch-results controller to track changes
+	
+}
+
+
+#
+# pragma mark Action Handlers
+#
+
+
+- (IBAction)showTheatreMapPressed {
+	
 	
 }
 
