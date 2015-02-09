@@ -51,6 +51,8 @@
 
 @property (nonatomic, strong) CLLocationManager* locationManager;
 
+@property (nonatomic, strong) NSString* postalCode;
+
 @end
 
 
@@ -103,30 +105,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 	
+	// Lazy-load location manager
 	self.locationManager = nil;
-
-	// Set start region for map to be user's location
-	// NOTE: Simulator will use Gastown GPX file
-	[self.theatreMapView setRegion:MKCoordinateRegionMake(self.locationManager.location.coordinate, MKCoordinateSpanMake(0.02, 0.02)) animated:NO];
-	
-//	MKPointAnnotation *marker=[[MKPointAnnotation alloc] init];
-//	CLLocationCoordinate2D iansApartmentLocation;
-//	iansApartmentLocation.latitude = 49.2682029;
-//	iansApartmentLocation.longitude = -123.153424;
-//	marker.coordinate = iansApartmentLocation;
-//	marker.title = @"Ian's Place";
-//	[self.theatreMapView addAnnotation:marker];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
 
-	[_locationManager startUpdatingLocation];
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+
+	[self.locationManager startUpdatingLocation];
 }
 
 
 - (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
 	
-	[_locationManager stopUpdatingLocation];
+	[self.locationManager stopUpdatingLocation];
 }
 
 
@@ -155,6 +149,12 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 
 	MDLog(@"locationManager:didChangeAuthorizationStatus %d", status);
+	
+	if (status != kCLAuthorizationStatusDenied &&
+		status != kCLAuthorizationStatusRestricted) {
+
+		[self configureView];
+	}
 }
 
 
@@ -175,6 +175,18 @@
 #
 
 
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+
+	// NOTE: Called many times during scrolling, so keep code lightweight
+
+}
+
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+
+}
+
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
 	
 	return nil;
@@ -191,8 +203,45 @@
 # pragma mark Helpers
 #
 
+
 - (void)configureView {
-	
+
+	// Set start region for map to be user's location
+	// NOTE: Simulator will use Gastown GPX file
+	[self.theatreMapView setRegion:MKCoordinateRegionMake(self.locationManager.location.coordinate, MKCoordinateSpanMake(0.02, 0.02)) animated:NO];
+
+	// Reverse geocode user's location to get postal code
+	CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+	[geocoder reverseGeocodeLocation:self.locationManager.location completionHandler:^(NSArray *placemarks, NSError *error) {
+		
+		// NOTE: Completion block will execute on main thread. Do not run more than one reverse geocode simultaneously.
+		
+		if (error) {
+			MDLog(@"Reverse Geocode Error - %@ %@", error.localizedDescription, error.userInfo);
+			return;
+		}
+		
+		if (placemarks.count < 1) {
+			MDLog(@"Reverse Geocode No Placemarks");
+			return;
+		}
+
+		// Grab postal code of first placemark
+		CLPlacemark* placemark = placemarks[0];
+		MDLog(@"Reverse Geocode Postal Code: %@", placemark.postalCode);
+		MDLog(@"Reverse Geocode Address: %@", placemark.addressDictionary);
+		self.postalCode = placemark.postalCode; // @"V6B 6B1";
+	}];
+
+	//	MKPointAnnotation *marker=[[MKPointAnnotation alloc] init];
+	//	CLLocationCoordinate2D iansApartmentLocation;
+	//	iansApartmentLocation.latitude = 49.2682029;
+	//	iansApartmentLocation.longitude = -123.153424;
+	//	marker.coordinate = iansApartmentLocation;
+	//	marker.title = @"Ian's Place";
+	//	[self.theatreMapView addAnnotation:marker];
+
+	// [self.theatreMapView layoutIfNeeded];
 }
 
 
