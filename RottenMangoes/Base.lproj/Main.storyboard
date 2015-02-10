@@ -324,14 +324,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" fixedFrame="YES" mapType="standard" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mi1-U9-mw5">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" mapType="standard" showsUserLocation="YES" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mi1-U9-mw5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <connections>
                                     <outlet property="delegate" destination="seM-5S-6sF" id="xIV-Pa-fEs"/>
                                 </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="Mi1-U9-mw5" secondAttribute="bottom" id="1c7-h8-JE6"/>
+                            <constraint firstItem="Mi1-U9-mw5" firstAttribute="leading" secondItem="9Bk-AT-nCj" secondAttribute="leading" id="5kq-aI-52s"/>
+                            <constraint firstAttribute="centerX" secondItem="Mi1-U9-mw5" secondAttribute="centerX" id="BYK-bG-W8Q"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Mi1-U9-mw5" secondAttribute="trailing" id="FUW-UF-CtW"/>
+                            <constraint firstItem="Mi1-U9-mw5" firstAttribute="leading" secondItem="9Bk-AT-nCj" secondAttribute="leadingMargin" id="KTw-MF-e3p"/>
+                            <constraint firstItem="Mi1-U9-mw5" firstAttribute="top" secondItem="kh5-Ei-I8y" secondAttribute="bottom" id="M1o-U2-fhR"/>
+                            <constraint firstItem="zYp-CK-stx" firstAttribute="top" secondItem="Mi1-U9-mw5" secondAttribute="bottom" id="Mzq-29-avF"/>
+                            <constraint firstAttribute="trailing" secondItem="Mi1-U9-mw5" secondAttribute="trailing" id="SZA-L0-CNA"/>
+                            <constraint firstItem="Mi1-U9-mw5" firstAttribute="top" secondItem="9Bk-AT-nCj" secondAttribute="topMargin" id="TRJ-dh-DN5"/>
+                            <constraint firstAttribute="centerY" secondItem="Mi1-U9-mw5" secondAttribute="centerY" id="j3I-0O-ukl"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1c7-h8-JE6"/>
+                                <exclude reference="FUW-UF-CtW"/>
+                                <exclude reference="KTw-MF-e3p"/>
+                                <exclude reference="TRJ-dh-DN5"/>
+                            </mask>
+                        </variation>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>

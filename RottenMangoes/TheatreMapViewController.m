@@ -39,19 +39,32 @@
 
 
 #
+# pragma mark - Constants
+#
+
+
+#define VANCOUVER_LATITUDE		49.25
+#define VANCOUVER_LONGITUDE		-123.1
+#define VANCOUVER_COORDINATE	CLLocationCoordinate2DMake(VANCOUVER_LATITUDE, VANCOUVER_LONGITUDE)
+
+#define MAP_SPAN_LOCATION_DELTA_NEIGHBOURHOOD	0.02 // degrees
+#define MAP_SPAN_LOCATION_DELTA_CITY			0.2 // degrees
+#define MAP_SPAN_LOCATION_DELTA_LOCALE			2.0 // degrees
+
+
+#
 # pragma mark - Interface
 #
 
 
-@interface TheatreMapViewController ()
+@interface TheatreMapViewController()
 
 #
 # pragma mark - Properties
 #
 
-@property (nonatomic, strong) CLLocationManager* locationManager;
-
-@property (nonatomic, strong) NSString* postalCode;
+@property (nonatomic, strong) CLLocationManager* locationManager; // NOTE: Must be strong ref
+@property (nonatomic, strong) CLLocation* userLocation;
 
 @end
 
@@ -71,26 +84,14 @@
 
 - (CLLocationManager*)locationManager {
 
+	// Lazy-load
 	if (_locationManager) return _locationManager;
 
-	// Request authorization to use location info
-	// Start updating location
-
-	CLAuthorizationStatus locationAuthorizationStatus = [CLLocationManager authorizationStatus];
-	if (locationAuthorizationStatus != kCLAuthorizationStatusDenied &&
-		locationAuthorizationStatus != kCLAuthorizationStatusRestricted) {
-		
-		_locationManager = [[CLLocationManager alloc] init];
-		_locationManager.delegate = self;
-		_locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-		//_locationManager.distanceFilter = kCLDistanceFilterNone; // Default kCLDistanceFilterNone
-		
-		[_locationManager requestWhenInUseAuthorization];
-		
-	} else {
-		
-		MDLog(@"Location Authorization Status: %d", locationAuthorizationStatus);
-	}
+	_locationManager = [[CLLocationManager alloc] init];
+	_locationManager.delegate = self;
+	_locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+	_locationManager.activityType = CLActivityTypeOther;
+	//_locationManager.distanceFilter = kCLDistanceFilterNone;
 
 	return _locationManager;
 }
@@ -104,23 +105,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+
+	// Request authorization to use location info
+	// NOTE: May already be authorized
+	// NOTE: Will run asynchronously
+	[self.locationManager requestWhenInUseAuthorization];
 	
-	// Lazy-load location manager
-	self.locationManager = nil;
+	// Start location service if authorized
+	if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+		[self.locationManager startUpdatingLocation];
+	}
+
+	[self configureView];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 
-	[self.locationManager startUpdatingLocation];
 }
 
 
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidDisappear:animated];
 	
-	[self.locationManager stopUpdatingLocation];
 }
 
 
@@ -149,11 +157,10 @@
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 
 	MDLog(@"locationManager:didChangeAuthorizationStatus %d", status);
-	
-	if (status != kCLAuthorizationStatusDenied &&
-		status != kCLAuthorizationStatusRestricted) {
 
-		[self configureView];
+	// Start location service if authorized
+	if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+		[self.locationManager startUpdatingLocation];
 	}
 }
 
@@ -161,6 +168,12 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
 
 	MDLog(@"locationManager:didUpdateLocations %@", locations);
+
+	// Once only, grab user's current location and reconfigure view
+	[self.locationManager stopUpdatingLocation];
+	if (self.userLocation) return;
+	self.userLocation = locations.lastObject;
+	[self configureView];
 }
 
 
@@ -178,7 +191,6 @@
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
 
 	// NOTE: Called many times during scrolling, so keep code lightweight
-
 }
 
 
@@ -206,15 +218,37 @@
 
 - (void)configureView {
 
-	// Set start region for map to be user's location
-	// NOTE: Simulator will use Gastown GPX file
-	[self.theatreMapView setRegion:MKCoordinateRegionMake(self.locationManager.location.coordinate, MKCoordinateSpanMake(0.02, 0.02)) animated:NO];
+	// Centre map on user location if possible, o/w use default
+	// NOTE: Simulator will use Gastown GPX file for user's location
+	CLLocation* centerLocation = nil;
+	CLLocationDegrees mapSpanLocationDeltaDegrees = MAP_SPAN_LOCATION_DELTA_LOCALE;
+	if (self.userLocation) {
 
-	// Reverse geocode user's location to get postal code
-	CLGeocoder* geocoder = [[CLGeocoder alloc] init];
-	[geocoder reverseGeocodeLocation:self.locationManager.location completionHandler:^(NSArray *placemarks, NSError *error) {
+		// Use user's current location
+		centerLocation = self.userLocation;
+		self.userLocation = nil;
+		mapSpanLocationDeltaDegrees = MAP_SPAN_LOCATION_DELTA_NEIGHBOURHOOD;
 		
-		// NOTE: Completion block will execute on main thread. Do not run more than one reverse geocode simultaneously.
+	} else {
+
+		// For debugging, use Vancouver
+		centerLocation = [[CLLocation alloc] initWithLatitude:VANCOUVER_LATITUDE longitude:VANCOUVER_LONGITUDE];
+		mapSpanLocationDeltaDegrees = MAP_SPAN_LOCATION_DELTA_CITY;
+
+		// Use user's current locale
+		//	NSLocale* locale = [NSLocale currentLocale];
+		//	NSString* localeIdentifier = locale.localeIdentifier; // Contains country
+		//	centerLocation = [[CLLocation alloc] initWithLatitude:?? longitude:??];
+		//	mapSpanLocationDeltaDegrees = MAP_SPAN_LOCATION_DELTA_LOCALE;
+	}
+	MKCoordinateRegion centerRegion = MKCoordinateRegionMake(centerLocation.coordinate, MKCoordinateSpanMake(mapSpanLocationDeltaDegrees, mapSpanLocationDeltaDegrees));
+	[self.theatreMapView setRegion:centerRegion animated:YES];
+	
+	// Reverse geocode user's location to get postal code and hence local theatres for movie
+	CLGeocoder* geocoder = [[CLGeocoder alloc] init];
+	[geocoder reverseGeocodeLocation:centerLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+		
+		// NOTE: Completion block will execute on main thread. Do not run more than one reverse-geocode simultaneously.
 		
 		if (error) {
 			MDLog(@"Reverse Geocode Error - %@ %@", error.localizedDescription, error.userInfo);
@@ -222,7 +256,7 @@
 		}
 		
 		if (placemarks.count < 1) {
-			MDLog(@"Reverse Geocode No Placemarks");
+			MDLog(@"Reverse Geocode: No Placemarks");
 			return;
 		}
 
@@ -230,16 +264,18 @@
 		CLPlacemark* placemark = placemarks[0];
 		MDLog(@"Reverse Geocode Postal Code: %@", placemark.postalCode);
 		MDLog(@"Reverse Geocode Address: %@", placemark.addressDictionary);
-		self.postalCode = placemark.postalCode; // @"V6B 6B1";
+		NSString* postalCode = placemark.postalCode;
+		
+		//	MKPointAnnotation *marker=[[MKPointAnnotation alloc] init];
+		//	CLLocationCoordinate2D iansApartmentLocation;
+		//	iansApartmentLocation.latitude = 49.2682029;
+		//	iansApartmentLocation.longitude = -123.153424;
+		//	marker.coordinate = iansApartmentLocation;
+		//	marker.title = @"Ian's Place";
+		//	[self.theatreMapView addAnnotation:marker];
+		
+		// [self.theatreMapView layoutIfNeeded];
 	}];
-
-	//	MKPointAnnotation *marker=[[MKPointAnnotation alloc] init];
-	//	CLLocationCoordinate2D iansApartmentLocation;
-	//	iansApartmentLocation.latitude = 49.2682029;
-	//	iansApartmentLocation.longitude = -123.153424;
-	//	marker.coordinate = iansApartmentLocation;
-	//	marker.title = @"Ian's Place";
-	//	[self.theatreMapView addAnnotation:marker];
 
 	// [self.theatreMapView layoutIfNeeded];
 }
