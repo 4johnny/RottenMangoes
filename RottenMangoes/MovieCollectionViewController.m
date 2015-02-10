@@ -521,11 +521,11 @@
 	[commandStr appendFormat:JSON_CMD_IN_THEATRE_MOVIES_FORMAT, PAGE_LIMIT, self.currentPageNumber + 1, API_KEY_ROTTEN_TOMATOES];
 	NSURL* commandUrl = [NSURL URLWithString:commandStr];
 	MDLog(@"%@", commandUrl)
-	NSMutableURLRequest* urlReq = [NSMutableURLRequest requestWithURL:commandUrl];
-	urlReq.HTTPMethod = @"GET";
 	
 	// Create and fire URL connection request
 	// NOTE: No retain cycle on self in block, since we know completion handler is run and discarded
+	NSMutableURLRequest* urlReq = [NSMutableURLRequest requestWithURL:commandUrl];
+	urlReq.HTTPMethod = @"GET";
 	[NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 		
 		if (!data) {

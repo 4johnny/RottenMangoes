@@ -171,7 +171,6 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
 	
 	// NOTE: Even if method is empty, at least one protocol method must be implemented for fetch-results controller to track changes
-	
 }
 
 

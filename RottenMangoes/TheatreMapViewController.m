@@ -8,6 +8,8 @@
 
 #import <CoreLocation/CoreLocation.h>
 #import "TheatreMapViewController.h"
+#import "Theatre+TheatreHelpers.h"
+
 
 /*
  Notes:
@@ -51,6 +53,9 @@
 #define MAP_SPAN_LOCATION_DELTA_CITY			0.2 // degrees
 #define MAP_SPAN_LOCATION_DELTA_LOCALE			2.0 // degrees
 
+#define API_BASE_URL_FORMAT 		@"http://lighthouse-movie-showtimes.herokuapp.com/"
+#define JSON_CMD_THEATRES_FORMAT	@"theatres.json?address='%@'&movie='%@'"
+
 
 #
 # pragma mark - Interface
@@ -65,6 +70,8 @@
 
 @property (nonatomic, strong) CLLocationManager* locationManager; // NOTE: Must be strong ref
 @property (nonatomic, strong) CLLocation* userLocation;
+
+@property (nonatomic) NSMutableArray* theatres;
 
 @end
 
@@ -84,7 +91,6 @@
 
 - (CLLocationManager*)locationManager {
 
-	// Lazy-load
 	if (_locationManager) return _locationManager;
 
 	_locationManager = [[CLLocationManager alloc] init];
@@ -105,6 +111,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	
+	self.theatres = [NSMutableArray array];
 
 	// Request authorization to use location info
 	// NOTE: May already be authorized
@@ -260,24 +268,85 @@
 			return;
 		}
 
-		// Grab postal code of first placemark
+		// Load theatre markers based on postal code of first placemark
 		CLPlacemark* placemark = placemarks[0];
 		MDLog(@"Reverse Geocode Postal Code: %@", placemark.postalCode);
 		MDLog(@"Reverse Geocode Address: %@", placemark.addressDictionary);
-		NSString* postalCode = placemark.postalCode;
-		
-		//	MKPointAnnotation *marker=[[MKPointAnnotation alloc] init];
-		//	CLLocationCoordinate2D iansApartmentLocation;
-		//	iansApartmentLocation.latitude = 49.2682029;
-		//	iansApartmentLocation.longitude = -123.153424;
-		//	marker.coordinate = iansApartmentLocation;
-		//	marker.title = @"Ian's Place";
-		//	[self.theatreMapView addAnnotation:marker];
-		
-		// [self.theatreMapView layoutIfNeeded];
+		[self loadTheatreMapAnnotations:placemark.postalCode];
 	}];
 
 	// [self.theatreMapView layoutIfNeeded];
+}
+
+
+- (void)loadTheatreMapAnnotations:(NSString*)postalCode {
+
+	// Build Rotten Tomatoes API command URL
+	NSMutableString* commandStr = [NSMutableString stringWithString:API_BASE_URL_FORMAT];
+	[commandStr appendFormat:JSON_CMD_THEATRES_FORMAT, postalCode, self.movie.title];
+	NSURL* commandUrl = [NSURL URLWithString:[commandStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+	MDLog(@"%@", commandUrl)
+	
+	// Create and fire URL connection request
+	// NOTE: No retain cycle on self in block, since we know completion handler is run and discarded
+	NSMutableURLRequest* urlReq = [NSMutableURLRequest requestWithURL:commandUrl];
+	urlReq.HTTPMethod = @"GET";
+	[NSURLConnection sendAsynchronousRequest:urlReq queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+		
+		if (!data) {
+			MDLog(@"URL Connection Error - %@ %@", connectionError.localizedDescription, [connectionError.userInfo objectForKey:NSURLErrorFailingURLStringErrorKey]);
+			return;
+		}
+		
+		// We have data - convert it to JSON dictionary
+		NSError* error = nil;
+		NSDictionary* theatresJSONDictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+		
+		if (!theatresJSONDictionary) {
+			MDLog(@"JSON Deserialization Error - %@ %@", error.localizedDescription, error.userInfo);
+			return;
+		}
+		// MDLog(@"Theatres JSON: %@", threatresJSONDictionary);
+		
+		// We have JSON dictionary - convert it to theatre objects
+		[self populateTheatresWithJSON:theatresJSONDictionary[@"theatres"]];
+		MDLog(@"Theatre count: %d", (int)self.theatres.count);
+		[self addTheatreMapAnnotations];
+		// MDLog(@"Theatres: %@", self.theatres);
+		[self.theatreMapView showAnnotations:self.theatreMapView.annotations animated:YES];
+	}];
+}
+
+
+- (void)populateTheatresWithJSON:(NSArray*)theatresJSON {
+	
+	for (id theatreJSON in theatresJSON) {
+		
+		Theatre* theatre = [Theatre theatreWithName:theatreJSON[@"name"]];
+
+		theatre.id = theatreJSON[@"id"];
+		theatre.address = theatreJSON[@"address"];
+		theatre.latitude = theatreJSON[@"lat"];
+		theatre.longitude = theatreJSON[@"lng"];
+		
+		[self.theatres addObject:theatre];
+	}
+	
+	//	[TheatreMapViewController saveManagedObjectContext];
+}
+
+
+- (void)addTheatreMapAnnotations {
+	
+	for (Theatre* theatre in self.theatres) {
+		
+		MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc] init];
+		pointAnnotation.coordinate = CLLocationCoordinate2DMake(theatre.latitude.doubleValue, theatre.longitude.doubleValue);
+		pointAnnotation.title = theatre.name;
+		pointAnnotation.subtitle = theatre.address;
+		
+		[self.theatreMapView addAnnotation:pointAnnotation];
+	}
 }
 
 
