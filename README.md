@@ -10,3 +10,7 @@ iOS Bootcamp Assignment - W4D3 W4D4 W4D5 - RottenMangoes
 * NSFetchResultsController
 * NSManagedObject
 * Entity relationships
+* MKMapView
+* CLLocationManager
+* Reverse geocoding
+* MKAnnotation
