@@ -339,13 +339,8 @@
 - (void)addTheatreMapAnnotations {
 	
 	for (Theatre* theatre in self.theatres) {
-		
-		MKPointAnnotation *pointAnnotation = [[MKPointAnnotation alloc] init];
-		pointAnnotation.coordinate = CLLocationCoordinate2DMake(theatre.latitude.doubleValue, theatre.longitude.doubleValue);
-		pointAnnotation.title = theatre.name;
-		pointAnnotation.subtitle = theatre.address;
-		
-		[self.theatreMapView addAnnotation:pointAnnotation];
+
+		[self.theatreMapView addAnnotation:theatre];
 	}
 }
 

@@ -8,7 +8,15 @@
 
 #import "Theatre.h"
 
-@interface Theatre (TheatreHelpers)
+#
+# pragma mark - Interface
+#
+
+@interface Theatre (TheatreHelpers) <MKAnnotation>
+
+#
+# pragma mark Helpers
+#
 
 + (Theatre*)theatreWithName:(NSString*)name;
 

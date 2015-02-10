@@ -6,11 +6,45 @@
 //  Copyright (c) 2015 Empath Solutions. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 #import "Theatre+TheatreHelpers.h"
 #import "AppDelegate.h"
 
 
+#
+# pragma mark - Implementation
+#
+
+
 @implementation Theatre (TheatreHelpers)
+
+
+#
+# pragma mark <MKAnnotation>
+#
+
+- (CLLocationCoordinate2D)coordinate {
+
+	return CLLocationCoordinate2DMake(self.latitude.doubleValue, self.longitude.doubleValue);
+}
+
+
+- (NSString*)title {
+	
+	return self.name;
+}
+
+
+- (NSString*)subtitle {
+	
+	return self.address;
+}
+
+
+#
+# pragma mark Helpers
+#
 
 
 + (Theatre*)theatreWithName:(NSString*)name {
