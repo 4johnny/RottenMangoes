@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Empath Solutions. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import "AppDelegate.h"
 #import "WelcomeViewController.h"
 
@@ -20,6 +21,18 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
+	
+	// [Optional] Power your app with Local Datastore. For more info, go to
+	// https://parse.com/docs/ios_guide#localdatastore/iOS
+	// [Parse enableLocalDatastore];
+ 
+	// Initialize Parse.
+	[Parse setApplicationId:@"wpcv1cfm8H4Yr4KYgsgqazygtRLKpzXq9j8F1927"
+				  clientKey:@"u9hmKFKv3CVYDuF5J64UK6NeA62oeUfn52izHrKt"];
+ 
+	// [Optional] Track statistics around application opens.
+	// [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+ 
 	
 	// Inject MOC into Welcome View Controller
 	UINavigationController* navigationController = (UINavigationController*)self.window.rootViewController;

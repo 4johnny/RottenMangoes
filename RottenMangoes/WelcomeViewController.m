@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 Empath Solutions. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import "WelcomeViewController.h"
 #import "MovieCollectionViewController.h"
+
 
 @interface WelcomeViewController ()
 
@@ -18,6 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+	
+	// Test Parse
+	//	PFObject *testObject = [PFObject objectWithClassName:@"TestObject"];
+	//	testObject[@"foo"] = @"bar";
+	//	[testObject saveInBackground];
 }
 
 - (void)didReceiveMemoryWarning {

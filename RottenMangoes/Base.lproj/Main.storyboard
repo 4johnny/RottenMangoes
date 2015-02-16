@@ -21,10 +21,10 @@
             </objects>
             <point key="canvasLocation" x="-568" y="350"/>
         </scene>
-        <!--WelcomeViewController-->
+        <!--Welcome View Controller-->
         <scene sceneID="bgq-nJ-Ify">
             <objects>
-                <viewController storyboardIdentifier="welcomeViewController" title="WelcomeViewController" id="4JN-FX-siM" customClass="WelcomeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="welcomeViewController" title="Welcome View Controller" id="4JN-FX-siM" customClass="WelcomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="d60-Yw-vYX"/>
                         <viewControllerLayoutGuide type="bottom" id="tVy-lt-J77"/>
@@ -32,6 +32,34 @@
                     <view key="view" contentMode="scaleToFill" id="tlb-VU-jwU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fTZ-vh-M5O">
+                                <rect key="frame" x="16" y="76" width="84" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AaW-oe-HT8">
+                                <rect key="frame" x="108" y="72" width="167" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T3e-q7-GwQ">
+                                <rect key="frame" x="16" y="105" width="38" height="30"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zpW-cd-em0">
+                                <rect key="frame" x="16" y="143" width="49" height="30"/>
+                                <state key="normal" title="Signup">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="76f-6D-Dia" kind="show" identifier="signup" id="59f-nZ-Hpc"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Rotten Mangoes" id="Zbf-WU-XdA">
@@ -46,10 +74,71 @@
             </objects>
             <point key="canvasLocation" x="159" y="350"/>
         </scene>
-        <!--In Theatre Movies-->
+        <!--Signup View Controller-->
+        <scene sceneID="YWp-ns-Zej">
+            <objects>
+                <viewController storyboardIdentifier="signupViewController" title="Signup View Controller" id="76f-6D-Dia" customClass="SignupViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jmn-Q5-ziC"/>
+                        <viewControllerLayoutGuide type="bottom" id="CKe-4c-Jil"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="X5B-UH-rWn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39a-ih-kxQ">
+                                <rect key="frame" x="16" y="76" width="84" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rrO-2R-RYo">
+                                <rect key="frame" x="108" y="72" width="229" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Avatar:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7bZ-Lr-keX">
+                                <rect key="frame" x="16" y="110" width="54" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="foosball_table" translatesAutoresizingMaskIntoConstraints="NO" id="lkb-9f-kSC">
+                                <rect key="frame" x="108" y="110" width="229" height="229"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fan Type:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VK-h4-bb3">
+                                <rect key="frame" x="16" y="373" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LLJ-Mp-O6v">
+                                <rect key="frame" x="108" y="303" width="229" height="162"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Signup" id="z0Y-Yk-xQu">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="pNm-IX-8QF">
+                            <connections>
+                                <action selector="savePressed:" destination="76f-6D-Dia" id="tln-IM-fw8"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="avatarImageView" destination="lkb-9f-kSC" id="OFU-1d-MrN"/>
+                        <outlet property="fanTypePickerView" destination="LLJ-Mp-O6v" id="eqx-jt-Anh"/>
+                        <outlet property="userNameTextField" destination="rrO-2R-RYo" id="edi-e9-Cni"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yMY-6h-EZ4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="159" y="1070"/>
+        </scene>
+        <!--Movies View Controller-->
         <scene sceneID="2Px-fD-dnL">
             <objects>
-                <collectionViewController id="mEY-hK-mBT" customClass="MovieCollectionViewController" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="movieCollectionViewController" title="Movies View Controller" id="mEY-hK-mBT" customClass="MovieCollectionViewController" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="odl-0a-dzV">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,10 +295,10 @@
             </objects>
             <point key="canvasLocation" x="889.5" y="350"/>
         </scene>
-        <!--Reviews-->
+        <!--Reviews View Controller-->
         <scene sceneID="qCp-O8-sn9">
             <objects>
-                <viewController id="kqy-PI-4Px" customClass="ReviewsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="reviewsViewController" title="Reviews View Controller" id="kqy-PI-4Px" customClass="ReviewsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hGb-BD-98q"/>
                         <viewControllerLayoutGuide type="bottom" id="u2e-HI-0Hl"/>
@@ -335,12 +424,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dup-8U-kvI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="889" y="1069"/>
+            <point key="canvasLocation" x="1599" y="350"/>
         </scene>
-        <!--Theatre Map-->
+        <!--Theatre Map View Controller-->
         <scene sceneID="I3P-NS-EUa">
             <objects>
-                <viewController title="Theatre Map" id="seM-5S-6sF" customClass="TheatreMapViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="theatreMapViewController" title="Theatre Map View Controller" id="seM-5S-6sF" customClass="TheatreMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kh5-Ei-I8y"/>
                         <viewControllerLayoutGuide type="bottom" id="zYp-CK-stx"/>
@@ -385,7 +474,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9GE-Zz-PQt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1587" y="1069"/>
+            <point key="canvasLocation" x="2313" y="350"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="foosball_table" width="3264" height="2448"/>
+    </resources>
 </document>
