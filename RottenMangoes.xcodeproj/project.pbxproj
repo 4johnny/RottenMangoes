@@ -19,6 +19,8 @@
 		B219A4781A835CF0000EB60A /* ReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B219A4771A835CF0000EB60A /* ReviewsViewController.m */; };
 		B22D1F561A88B0E1000C1A4B /* GastownLocation.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B22D1F551A88B0E1000C1A4B /* GastownLocation.gpx */; };
 		B27F6B861A8A228C001DE11D /* Theatre+TheatreHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = B27F6B851A8A228C001DE11D /* Theatre+TheatreHelpers.m */; };
+		B280C1541A926D13001A6ABF /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = B280C1531A926D13001A6ABF /* Util.m */; };
+		B280C1571A927151001A6ABF /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B280C1561A927151001A6ABF /* WelcomeViewController.m */; };
 		B28927861A875A6B00C43D58 /* Movie.m in Sources */ = {isa = PBXBuildFile; fileRef = B28927851A875A6B00C43D58 /* Movie.m */; };
 		B2A2DE891A87543000E152EC /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2DE881A87543000E152EC /* Review.m */; };
 		B2A2DE8F1A87543100E152EC /* ShowTime.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2DE8E1A87543100E152EC /* ShowTime.m */; };
@@ -61,6 +63,10 @@
 		B22D1F551A88B0E1000C1A4B /* GastownLocation.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GastownLocation.gpx; sourceTree = "<group>"; };
 		B27F6B841A8A228C001DE11D /* Theatre+TheatreHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Theatre+TheatreHelpers.h"; sourceTree = "<group>"; };
 		B27F6B851A8A228C001DE11D /* Theatre+TheatreHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Theatre+TheatreHelpers.m"; sourceTree = "<group>"; };
+		B280C1521A926D13001A6ABF /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
+		B280C1531A926D13001A6ABF /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
+		B280C1551A927151001A6ABF /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
+		B280C1561A927151001A6ABF /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		B28927841A875A6B00C43D58 /* Movie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Movie.h; sourceTree = "<group>"; };
 		B28927851A875A6B00C43D58 /* Movie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Movie.m; sourceTree = "<group>"; };
 		B2A2DE871A87543000E152EC /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Review.h; sourceTree = "<group>"; };
@@ -119,6 +125,8 @@
 			children = (
 				B20F2B231A82D7B400077B86 /* AppDelegate.h */,
 				B20F2B241A82D7B400077B86 /* AppDelegate.m */,
+				B280C1551A927151001A6ABF /* WelcomeViewController.h */,
+				B280C1561A927151001A6ABF /* WelcomeViewController.m */,
 				B20F2B291A82D7B400077B86 /* MovieCollectionViewController.h */,
 				B20F2B2A1A82D7B400077B86 /* MovieCollectionViewController.m */,
 				B219A4731A833E67000EB60A /* MovieCollectionViewCell.h */,
@@ -139,9 +147,10 @@
 				B2A2DE911A87543100E152EC /* Theatre.m */,
 				B27F6B841A8A228C001DE11D /* Theatre+TheatreHelpers.h */,
 				B27F6B851A8A228C001DE11D /* Theatre+TheatreHelpers.m */,
+				B280C1521A926D13001A6ABF /* Util.h */,
+				B280C1531A926D13001A6ABF /* Util.m */,
 				B20F2B2C1A82D7B400077B86 /* Main.storyboard */,
 				B20F2B261A82D7B400077B86 /* RottenMangoes.xcdatamodeld */,
-				B20F2B201A82D7B400077B86 /* Info.plist */,
 				B22D1F551A88B0E1000C1A4B /* GastownLocation.gpx */,
 				B20F2B1F1A82D7B400077B86 /* Supporting Files */,
 			);
@@ -151,6 +160,7 @@
 		B20F2B1F1A82D7B400077B86 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B20F2B201A82D7B400077B86 /* Info.plist */,
 				B20F2B2F1A82D7B400077B86 /* Images.xcassets */,
 				B20F2B311A82D7B400077B86 /* LaunchScreen.xib */,
 				B20F2B481A82D83400077B86 /* PrefixHeader.pch */,
@@ -290,6 +300,8 @@
 				B27F6B861A8A228C001DE11D /* Theatre+TheatreHelpers.m in Sources */,
 				B2A2DE891A87543000E152EC /* Review.m in Sources */,
 				B2A2DE8F1A87543100E152EC /* ShowTime.m in Sources */,
+				B280C1571A927151001A6ABF /* WelcomeViewController.m in Sources */,
+				B280C1541A926D13001A6ABF /* Util.m in Sources */,
 				B2AEADFE1A8492F900A73EBE /* FooterCollectionReusableView.m in Sources */,
 				B219A4781A835CF0000EB60A /* ReviewsViewController.m in Sources */,
 				B28927861A875A6B00C43D58 /* Movie.m in Sources */,

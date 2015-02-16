@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MovieCollectionViewController.h"
+#import "WelcomeViewController.h"
 
 
 @interface AppDelegate ()
@@ -21,10 +21,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.
 	
-	// Inject MOC into Movie Collection View Controller
+	// Inject MOC into Welcome View Controller
 	UINavigationController* navigationController = (UINavigationController*)self.window.rootViewController;
-	MovieCollectionViewController* movieCollectionViewController = (MovieCollectionViewController*)navigationController.topViewController;
-	movieCollectionViewController.managedObjectContext = self.managedObjectContext;
+	WelcomeViewController* welcomeViewController = (WelcomeViewController*)navigationController.topViewController;
+	welcomeViewController.managedObjectContext = self.managedObjectContext;
 	
 	return YES;
 }

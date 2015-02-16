@@ -5,21 +5,46 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Movies-->
+        <!--MainNavigationController-->
         <scene sceneID="OUM-o3-QWG">
             <objects>
-                <navigationController title="Movies" id="YiV-qi-Vim" sceneMemberID="viewController">
+                <navigationController title="MainNavigationController" id="YiV-qi-Vim" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FSN-dG-K2C">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="mEY-hK-mBT" kind="relationship" relationship="rootViewController" id="IfP-0R-bMf"/>
+                        <segue destination="4JN-FX-siM" kind="relationship" relationship="rootViewController" id="EaK-C2-YTA"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WbY-85-n1O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="350"/>
+            <point key="canvasLocation" x="-568" y="350"/>
+        </scene>
+        <!--WelcomeViewController-->
+        <scene sceneID="bgq-nJ-Ify">
+            <objects>
+                <viewController storyboardIdentifier="welcomeViewController" title="WelcomeViewController" id="4JN-FX-siM" customClass="WelcomeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="d60-Yw-vYX"/>
+                        <viewControllerLayoutGuide type="bottom" id="tVy-lt-J77"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tlb-VU-jwU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Rotten Mangoes" id="Zbf-WU-XdA">
+                        <barButtonItem key="rightBarButtonItem" title="Movies" id="HIf-e1-ruF">
+                            <connections>
+                                <segue destination="mEY-hK-mBT" kind="show" identifier="showMovies" id="egO-Nx-rMb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KrM-hR-U9E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="159" y="350"/>
         </scene>
         <!--In Theatre Movies-->
         <scene sceneID="2Px-fD-dnL">
