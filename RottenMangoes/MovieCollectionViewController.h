@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import <Parse/Parse.h>
 
 
 @interface MovieCollectionViewController : UICollectionViewController <UICollectionViewDelegateFlowLayout, NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSFetchedResultsControllerDelegate>
 
 @property (strong, nonatomic) NSManagedObjectContext* managedObjectContext;
+
+@property (nonatomic) PFUser* user; // NOTE: Can be nil
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshBarButton;
 

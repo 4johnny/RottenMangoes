@@ -9,6 +9,7 @@
 #import <Parse/Parse.h>
 #import "WelcomeViewController.h"
 #import "MovieCollectionViewController.h"
+#import "ProfileViewController.h"
 
 
 @interface WelcomeViewController ()
@@ -42,7 +43,47 @@
 		// Inject MOC into movie collection view controller
 		MovieCollectionViewController* movieCollectionViewController = (MovieCollectionViewController*)segue.destinationViewController;
 		movieCollectionViewController.managedObjectContext = self.managedObjectContext;
+		movieCollectionViewController.user = self.user;
+		
+	} else if ([segue.identifier isEqualToString:@"showProfile"]) {
+		
+		// Inject user into profile view controller
+		ProfileViewController* profileViewController = (ProfileViewController*)segue.destinationViewController;
+		profileViewController.user = self.user;
 	}
+}
+
+
+- (IBAction)loginPressed:(UIButton *)sender {
+	
+	self.user = nil;
+
+	[PFUser logInWithUsernameInBackground:self.usernameTextField.text password:@"password" block:^(PFUser *user, NSError *error) {
+		
+		if (!error) {
+			
+			self.user = user;
+			
+			dispatch_async(dispatch_get_main_queue(), ^{
+				
+				[self performSegueWithIdentifier:@"showMovies" sender:self];
+			});
+			
+			return;
+		}
+		
+		NSLog(@"Login error: %@ %@", error.localizedDescription, error.userInfo);
+		
+		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+		NSString* alertMessage = @"Login failed";
+		UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Login" message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
+		[alert addAction:defaultAction];
+		
+		dispatch_async(dispatch_get_main_queue(), ^{
+			
+			[self.navigationController presentViewController:alert animated:YES completion:nil];
+		});
+	}];
 }
 
 

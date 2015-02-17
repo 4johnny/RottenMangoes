@@ -18,6 +18,7 @@
 		B219A4751A833E67000EB60A /* MovieCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B219A4741A833E67000EB60A /* MovieCollectionViewCell.m */; };
 		B219A4781A835CF0000EB60A /* ReviewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B219A4771A835CF0000EB60A /* ReviewsViewController.m */; };
 		B22D1F561A88B0E1000C1A4B /* GastownLocation.gpx in Resources */ = {isa = PBXBuildFile; fileRef = B22D1F551A88B0E1000C1A4B /* GastownLocation.gpx */; };
+		B26EC15A1A93354200C63BFF /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B26EC1591A93354200C63BFF /* ProfileViewController.m */; };
 		B27F6B861A8A228C001DE11D /* Theatre+TheatreHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = B27F6B851A8A228C001DE11D /* Theatre+TheatreHelpers.m */; };
 		B280C1541A926D13001A6ABF /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = B280C1531A926D13001A6ABF /* Util.m */; };
 		B280C1571A927151001A6ABF /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B280C1561A927151001A6ABF /* WelcomeViewController.m */; };
@@ -75,6 +76,8 @@
 		B219A4761A835CF0000EB60A /* ReviewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReviewsViewController.h; sourceTree = "<group>"; };
 		B219A4771A835CF0000EB60A /* ReviewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReviewsViewController.m; sourceTree = "<group>"; };
 		B22D1F551A88B0E1000C1A4B /* GastownLocation.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = GastownLocation.gpx; sourceTree = "<group>"; };
+		B26EC1581A93354200C63BFF /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		B26EC1591A93354200C63BFF /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		B27F6B841A8A228C001DE11D /* Theatre+TheatreHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Theatre+TheatreHelpers.h"; sourceTree = "<group>"; };
 		B27F6B851A8A228C001DE11D /* Theatre+TheatreHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Theatre+TheatreHelpers.m"; sourceTree = "<group>"; };
 		B280C1521A926D13001A6ABF /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
@@ -171,6 +174,8 @@
 				B280C1561A927151001A6ABF /* WelcomeViewController.m */,
 				B280C1581A927649001A6ABF /* SignupViewController.h */,
 				B280C1591A927649001A6ABF /* SignupViewController.m */,
+				B26EC1581A93354200C63BFF /* ProfileViewController.h */,
+				B26EC1591A93354200C63BFF /* ProfileViewController.m */,
 				B20F2B291A82D7B400077B86 /* MovieCollectionViewController.h */,
 				B20F2B2A1A82D7B400077B86 /* MovieCollectionViewController.m */,
 				B219A4731A833E67000EB60A /* MovieCollectionViewCell.h */,
@@ -361,6 +366,7 @@
 				B280C15A1A927649001A6ABF /* SignupViewController.m in Sources */,
 				B280C1541A926D13001A6ABF /* Util.m in Sources */,
 				B2AEADFE1A8492F900A73EBE /* FooterCollectionReusableView.m in Sources */,
+				B26EC15A1A93354200C63BFF /* ProfileViewController.m in Sources */,
 				B219A4781A835CF0000EB60A /* ReviewsViewController.m in Sources */,
 				B28927861A875A6B00C43D58 /* Movie.m in Sources */,
 				B20F2B2B1A82D7B400077B86 /* MovieCollectionViewController.m in Sources */,

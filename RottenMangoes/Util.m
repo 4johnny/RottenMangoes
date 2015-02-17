@@ -8,6 +8,42 @@
 
 #import "Util.h"
 
+
+@interface Util ()
+
+@property (nonatomic) NSArray* fanTypes;
+
+@end
+
+
+
 @implementation Util
+
+
+#
+# pragma mark Static
+#
+
+
+static NSArray* fanTypes = nil;
+
+
+
+#
+# pragma mark Property Accessors
+#
+
++ (NSArray*)fanTypes {
+	
+	if (fanTypes) return fanTypes;
+	
+	fanTypes = @[@"None",
+				 @"Movie Critic",
+				 @"Casual Movie Fan"
+				 ];
+	
+	return fanTypes;
+}
+
 
 @end

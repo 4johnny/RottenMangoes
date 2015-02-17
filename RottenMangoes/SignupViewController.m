@@ -8,34 +8,16 @@
 
 #import <Parse/Parse.h>
 #import "SignupViewController.h"
+#import "Util.h"
 
 
 @interface SignupViewController ()
 
-@property (nonatomic) NSArray* fanTypes;
 
 @end
 
 
 @implementation SignupViewController
-
-
-#
-# pragma mark Property Accessors
-#
-
-
-- (NSArray*)fanTypes {
-	
-	if (_fanTypes) return _fanTypes;
-	
-	_fanTypes = @[@"None",
-				  @"Movie Critic",
-				  @"Casual Movie Fan"
-				  ];
-	
-	return _fanTypes;
-}
 
 
 #
@@ -97,7 +79,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
 	
-	if (pickerView == self.fanTypePickerView) return self.fanTypes[row + 1];
+	if (pickerView == self.fanTypePickerView) return Util.fanTypes[row + 1];
 	
 	return nil;
 }
@@ -120,15 +102,17 @@
 	NSData* avatarJPEGData = UIImageJPEGRepresentation(self.avatarImageView.image, 1.0);
 	user[@"avatarJPEGFile"] = [PFFile fileWithName:@"avatar.jpg" data:avatarJPEGData];
 	
-	user[@"fanType"] = (NSString*)self.fanTypes[[self.fanTypePickerView selectedRowInComponent:0] + 1];
+	FanType fanType = [self.fanTypePickerView selectedRowInComponent:0] + 1;
+	user[@"fanType"] = (NSString*)([Util fanTypes][fanType]);
 	
 	[user signUpInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 		
 		NSString* alertMessage = @"Signup successful";
 		if (!succeeded) {
 			
+			NSLog(@"Signup error: %@ %@", error.localizedDescription, error.userInfo);
+			
 			alertMessage = @"Signup failed - try another username";
-			NSLog(@"Signup error %@ %@", error.localizedDescription, error.userInfo);
 		}
 		
 		UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {

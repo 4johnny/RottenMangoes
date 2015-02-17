@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 
 
-@interface SignupViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ProfileViewController : UIViewController
 
+@property (nonatomic) PFUser* user;
 
-@property (weak, nonatomic) IBOutlet UITextField *userNameTextField;
+@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet UIPickerView *fanTypePickerView;
+@property (weak, nonatomic) IBOutlet UILabel *fanTypeLabel;
 
 @end

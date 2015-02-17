@@ -12,4 +12,8 @@
 
 @property (strong, nonatomic) NSManagedObjectContext* managedObjectContext;
 
+@property (nonatomic) PFUser* user;
+
+@property (weak, nonatomic) IBOutlet UITextField *usernameTextField;
+
 @end
