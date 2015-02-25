@@ -146,6 +146,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B2078B8C1A9DB7B6004AF662 /* Data Model - Generated */ = {
+			isa = PBXGroup;
+			children = (
+				B20F2B261A82D7B400077B86 /* RottenMangoes.xcdatamodeld */,
+				B28927841A875A6B00C43D58 /* Movie.h */,
+				B28927851A875A6B00C43D58 /* Movie.m */,
+				B2A2DE871A87543000E152EC /* Review.h */,
+				B2A2DE881A87543000E152EC /* Review.m */,
+				B2A2DE8D1A87543100E152EC /* ShowTime.h */,
+				B2A2DE8E1A87543100E152EC /* ShowTime.m */,
+				B2A2DE901A87543100E152EC /* Theatre.h */,
+				B2A2DE911A87543100E152EC /* Theatre.m */,
+			);
+			name = "Data Model - Generated";
+			sourceTree = "<group>";
+		};
+		B2078B8D1A9DB7DB004AF662 /* Data Model - Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B27F6B841A8A228C001DE11D /* Theatre+TheatreHelpers.h */,
+				B27F6B851A8A228C001DE11D /* Theatre+TheatreHelpers.m */,
+			);
+			name = "Data Model - Extensions";
+			sourceTree = "<group>";
+		};
 		B20F2B131A82D7B400077B86 = {
 			isa = PBXGroup;
 			children = (
@@ -186,18 +211,9 @@
 				B219A4771A835CF0000EB60A /* ReviewsViewController.m */,
 				B2C9E58D1A8898CB00A788A1 /* TheatreMapViewController.h */,
 				B2C9E58E1A8898CB00A788A1 /* TheatreMapViewController.m */,
-				B28927841A875A6B00C43D58 /* Movie.h */,
-				B28927851A875A6B00C43D58 /* Movie.m */,
-				B2A2DE871A87543000E152EC /* Review.h */,
-				B2A2DE881A87543000E152EC /* Review.m */,
-				B2A2DE8D1A87543100E152EC /* ShowTime.h */,
-				B2A2DE8E1A87543100E152EC /* ShowTime.m */,
-				B2A2DE901A87543100E152EC /* Theatre.h */,
-				B2A2DE911A87543100E152EC /* Theatre.m */,
-				B27F6B841A8A228C001DE11D /* Theatre+TheatreHelpers.h */,
-				B27F6B851A8A228C001DE11D /* Theatre+TheatreHelpers.m */,
 				B20F2B2C1A82D7B400077B86 /* Main.storyboard */,
-				B20F2B261A82D7B400077B86 /* RottenMangoes.xcdatamodeld */,
+				B2078B8C1A9DB7B6004AF662 /* Data Model - Generated */,
+				B2078B8D1A9DB7DB004AF662 /* Data Model - Extensions */,
 				B20F2B1F1A82D7B400077B86 /* Supporting Files */,
 			);
 			path = RottenMangoes;
